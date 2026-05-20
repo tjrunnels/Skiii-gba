@@ -1,1 +1,0 @@
-brin.o: brin.s

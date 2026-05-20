@@ -1,5 +1,7 @@
-brin_demo.o: \
- /Users/tomrunnels/Documents/Development/Skiii-gba/source/brin_demo.c \
+skiii.o: /home/tom/Documents/Development/Skiii-gba/source/skiii.c \
+ /home/tom/Documents/Development/Skiii-gba/source/skiii.h \
+ /home/tom/Documents/Development/Skiii-gba/build/snow_floor.h \
+ /home/tom/Documents/Development/Skiii-gba/source/ui_manager.h \
  /opt/devkitpro/libtonc/include/tonc.h \
  /opt/devkitpro/libtonc/include/tonc_types.h \
  /opt/devkitpro/libtonc/include/tonc_memmap.h \
@@ -14,8 +16,10 @@ brin_demo.o: \
  /opt/devkitpro/libtonc/include/tonc_surface.h \
  /opt/devkitpro/libtonc/include/tonc_video.h \
  /opt/devkitpro/libtonc/include/tonc_nocash.h \
- /opt/devkitpro/libtonc/include/tonc_text.h \
- /Users/tomrunnels/Documents/Development/Skiii-gba/build/brin.h
+ /opt/devkitpro/libtonc/include/tonc_text.h
+/home/tom/Documents/Development/Skiii-gba/source/skiii.h:
+/home/tom/Documents/Development/Skiii-gba/build/snow_floor.h:
+/home/tom/Documents/Development/Skiii-gba/source/ui_manager.h:
 /opt/devkitpro/libtonc/include/tonc.h:
 /opt/devkitpro/libtonc/include/tonc_types.h:
 /opt/devkitpro/libtonc/include/tonc_memmap.h:
@@ -31,4 +35,3 @@ brin_demo.o: \
 /opt/devkitpro/libtonc/include/tonc_video.h:
 /opt/devkitpro/libtonc/include/tonc_nocash.h:
 /opt/devkitpro/libtonc/include/tonc_text.h:
-/Users/tomrunnels/Documents/Development/Skiii-gba/build/brin.h:

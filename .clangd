@@ -1,0 +1,12 @@
+CompileFlags:
+  Add:
+    - --target=arm-none-eabi
+    - -I/home/tom/Documents/Development/Skiii-gba/build
+    - -isystem
+    - /opt/devkitpro/libtonc/include
+    - -isystem
+    - /opt/devkitpro/libgba/include
+    - -isystem
+    - /opt/devkitpro/devkitARM/arm-none-eabi/include
+    - -Wno-unknown-attributes
+    - -Wno-visibility
