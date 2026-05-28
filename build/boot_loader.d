@@ -1,8 +1,8 @@
-skiii.o: /home/tom/Documents/Development/Skiii-gba/source/skiii.c \
+boot_loader.o: \
+ /home/tom/Documents/Development/Skiii-gba/source/boot_loader.c \
  /home/tom/Documents/Development/Skiii-gba/source/boot_loader.h \
- /home/tom/Documents/Development/Skiii-gba/source/skiii.h \
+ /home/tom/Documents/Development/Skiii-gba/build/skiii_logo.h \
  /home/tom/Documents/Development/Skiii-gba/build/snow_floor.h \
- /home/tom/Documents/Development/Skiii-gba/source/ui_manager.h \
  /opt/devkitpro/libtonc/include/tonc.h \
  /opt/devkitpro/libtonc/include/tonc_types.h \
  /opt/devkitpro/libtonc/include/tonc_memmap.h \
@@ -19,9 +19,8 @@ skiii.o: /home/tom/Documents/Development/Skiii-gba/source/skiii.c \
  /opt/devkitpro/libtonc/include/tonc_nocash.h \
  /opt/devkitpro/libtonc/include/tonc_text.h
 /home/tom/Documents/Development/Skiii-gba/source/boot_loader.h:
-/home/tom/Documents/Development/Skiii-gba/source/skiii.h:
+/home/tom/Documents/Development/Skiii-gba/build/skiii_logo.h:
 /home/tom/Documents/Development/Skiii-gba/build/snow_floor.h:
-/home/tom/Documents/Development/Skiii-gba/source/ui_manager.h:
 /opt/devkitpro/libtonc/include/tonc.h:
 /opt/devkitpro/libtonc/include/tonc_types.h:
 /opt/devkitpro/libtonc/include/tonc_memmap.h:

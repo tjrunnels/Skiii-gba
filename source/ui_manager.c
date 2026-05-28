@@ -1,11 +1,10 @@
 #include "skiii.h"
+#include <tonc.h>
+
 
 void change_ui_state(ProgramState state) {
   if (state == MENU) {
-    // load main menu objects into VRAM
-
-    // load main menu objects into OAM
-
+    // TODO: Turn on the menu background layers that were loaded at boot.
     // unload everything else
   } else if (state == OPTIONS) {
     // load options screen objects into vram
