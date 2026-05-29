@@ -3,6 +3,8 @@ boot_loader.o: \
  /home/tom/Documents/Development/Skiii-gba/source/boot_loader.h \
  /home/tom/Documents/Development/Skiii-gba/build/skiii_logo.h \
  /home/tom/Documents/Development/Skiii-gba/build/snow_floor.h \
+ /home/tom/Documents/Development/Skiii-gba/build/snow_floor32.h \
+ /home/tom/Documents/Development/Skiii-gba/build/start.h \
  /opt/devkitpro/libtonc/include/tonc.h \
  /opt/devkitpro/libtonc/include/tonc_types.h \
  /opt/devkitpro/libtonc/include/tonc_memmap.h \
@@ -21,6 +23,8 @@ boot_loader.o: \
 /home/tom/Documents/Development/Skiii-gba/source/boot_loader.h:
 /home/tom/Documents/Development/Skiii-gba/build/skiii_logo.h:
 /home/tom/Documents/Development/Skiii-gba/build/snow_floor.h:
+/home/tom/Documents/Development/Skiii-gba/build/snow_floor32.h:
+/home/tom/Documents/Development/Skiii-gba/build/start.h:
 /opt/devkitpro/libtonc/include/tonc.h:
 /opt/devkitpro/libtonc/include/tonc_types.h:
 /opt/devkitpro/libtonc/include/tonc_memmap.h:

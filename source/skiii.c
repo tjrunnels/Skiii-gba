@@ -4,6 +4,9 @@
 #include "ui_manager.h"
 #include <tonc.h>
 
+// GBA resolution: 240 x 160
+
+
 int main() {
   // Setup the GBA program
   ProgramState game_state = MENU;
@@ -18,7 +21,7 @@ int main() {
   enable_running_snow_background_0();
 
   // Scroll around some
-  short int SCROLL_DELTA_X = 192;
+  short int SCROLL_DELTA_X = 192/8;
   short int SCROLL_DELTA_Y = 64;
 
   // main game loop
@@ -26,8 +29,8 @@ int main() {
     VBlankIntrWait(); //  Wait until the last frame finishes drawing
     key_poll();       //  snapshot of keys i think?
 
-    SCROLL_DELTA_X += 1;
-    SCROLL_DELTA_Y += key_tri_vert();
+    SCROLL_DELTA_Y += 1;
+    SCROLL_DELTA_X += key_tri_shoulder();
 
     REG_BG0HOFS = SCROLL_DELTA_X;
     REG_BG0VOFS = SCROLL_DELTA_Y;

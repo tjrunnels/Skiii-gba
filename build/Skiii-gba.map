@@ -4,6 +4,8 @@ Archive member included to satisfy reference by file (symbol)
                               skiii.o (key_poll)
 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
                               skiii.o (irq_init)
+/opt/devkitpro/libtonc/lib/libtonc.a(tonc_oam.o)
+                              boot_loader.o (oam_init)
 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_bios.o)
                               skiii.o (VBlankIntrWait)
 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_isr_master.o)
@@ -57,10 +59,19 @@ Discarded input sections
  .text          0x00000000        0x0 skiii_logo.o
  .data          0x00000000        0x0 skiii_logo.o
  .bss           0x00000000        0x0 skiii_logo.o
+ .text          0x00000000        0x0 snow_floor32.o
+ .data          0x00000000        0x0 snow_floor32.o
+ .bss           0x00000000        0x0 snow_floor32.o
  .text          0x00000000        0x0 snow_floor.o
  .data          0x00000000        0x0 snow_floor.o
  .bss           0x00000000        0x0 snow_floor.o
+ .rodata        0x00000000     0x7400 snow_floor.o
+ .text          0x00000000        0x0 start.o
+ .data          0x00000000        0x0 start.o
+ .bss           0x00000000        0x0 start.o
  .data          0x00000000        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
+ .data          0x00000000        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_oam.o)
+ .bss           0x00000000        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_oam.o)
  .data          0x00000000        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_bios.o)
  .bss           0x00000000        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_bios.o)
  .text          0x00000000        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_isr_master.o)
@@ -141,153 +152,161 @@ Linker script and memory map
  *(.plt)
                 0x0800021c                        . = ALIGN (0x4)
 
-.text           0x0800021c      0x798
+.text           0x0800021c      0x8cc
  *(EXCLUDE_FILE(*.iwram*) .text*)
  .text.__do_global_dtors_aux
                 0x0800021c       0x2c /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtbegin.o
  .text.frame_dummy
                 0x08000248       0x24 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtbegin.o
- .text          0x0800026c       0xb4 boot_loader.o
+ .text          0x0800026c      0x128 boot_loader.o
                 0x0800026c                load_boot_assets
-                0x080002ec                enable_running_snow_background_0
- .text.startup  0x08000320       0x6c skiii.o
-                0x08000320                main
- .text          0x0800038c        0x4 ui_manager.o
-                0x0800038c                change_ui_state
- .text          0x08000390       0xac /opt/devkitpro/libtonc/lib/libtonc.a(tonc_input.o)
-                0x08000390                key_poll
-                0x080003e8                key_wait_till_hit
-                0x0800040c                key_repeat
-                0x08000418                key_repeat_mask
-                0x08000428                key_repeat_limits
- .text          0x0800043c      0x34c /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
-                0x0800043c                irq_init
-                0x08000480                irq_set_master
-                0x080004ac                irq_set
-                0x080005c0                irq_add
-                0x08000634                irq_delete
-                0x080006dc                irq_enable
-                0x08000730                irq_disable
- .text          0x08000788       0x8c /opt/devkitpro/libtonc/lib/libtonc.a(tonc_bios.o)
-                0x08000788                SoftReset
-                0x0800078c                RegisterRamReset
-                0x08000790                Halt
-                0x08000794                Stop
-                0x08000798                IntrWait
-                0x0800079c                VBlankIntrWait
-                0x080007a0                Div
-                0x080007a4                DivArm
-                0x080007a8                Sqrt
-                0x080007ac                ArcTan
-                0x080007b0                ArcTan2
-                0x080007b4                CpuSet
-                0x080007b8                CpuFastSet
-                0x080007bc                BiosCheckSum
-                0x080007c0                BgAffineSet
-                0x080007c4                ObjAffineSet
-                0x080007c8                BitUnPack
-                0x080007cc                LZ77UnCompWram
-                0x080007d0                LZ77UnCompVram
-                0x080007d4                HuffUnComp
-                0x080007d8                RLUnCompWram
-                0x080007dc                RLUnCompVram
-                0x080007e0                Diff8bitUnFilterWram
-                0x080007e4                Diff8bitUnFilterVram
-                0x080007e8                Diff16bitUnFilter
-                0x080007ec                SoundBias
-                0x080007f0                SoundDriverInit
-                0x080007f4                SoundDriverMode
-                0x080007f8                SoundDriverMain
-                0x080007fc                SoundDriverVSync
-                0x08000800                SoundChannelClear
-                0x08000804                MidiKey2Freq
-                0x08000808                MultiBoot
-                0x0800080c                SoundDriverVSyncOff
-                0x08000810                SoundDriverVSyncOn
- .text          0x08000814       0x44 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_memcpy.o)
-                0x08000814                memcpy16
+                0x08000340                enable_running_snow_background_0
+ .text.startup  0x08000394       0x6c skiii.o
+                0x08000394                main
+ .text          0x08000400        0x4 ui_manager.o
+                0x08000400                change_ui_state
+ .text          0x08000404       0xac /opt/devkitpro/libtonc/lib/libtonc.a(tonc_input.o)
+                0x08000404                key_poll
+                0x0800045c                key_wait_till_hit
+                0x08000480                key_repeat
+                0x0800048c                key_repeat_mask
+                0x0800049c                key_repeat_limits
+ .text          0x080004b0      0x34c /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
+                0x080004b0                irq_init
+                0x080004f4                irq_set_master
+                0x08000520                irq_set
+                0x08000634                irq_add
+                0x080006a8                irq_delete
+                0x08000750                irq_enable
+                0x080007a4                irq_disable
+ .text          0x080007fc       0xc0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_oam.o)
+                0x080007fc                oam_init
+                0x08000848                obj_copy
+                0x08000868                obj_hide_multi
+                0x08000890                obj_unhide_multi
+ .text          0x080008bc       0x8c /opt/devkitpro/libtonc/lib/libtonc.a(tonc_bios.o)
+                0x080008bc                SoftReset
+                0x080008c0                RegisterRamReset
+                0x080008c4                Halt
+                0x080008c8                Stop
+                0x080008cc                IntrWait
+                0x080008d0                VBlankIntrWait
+                0x080008d4                Div
+                0x080008d8                DivArm
+                0x080008dc                Sqrt
+                0x080008e0                ArcTan
+                0x080008e4                ArcTan2
+                0x080008e8                CpuSet
+                0x080008ec                CpuFastSet
+                0x080008f0                BiosCheckSum
+                0x080008f4                BgAffineSet
+                0x080008f8                ObjAffineSet
+                0x080008fc                BitUnPack
+                0x08000900                LZ77UnCompWram
+                0x08000904                LZ77UnCompVram
+                0x08000908                HuffUnComp
+                0x0800090c                RLUnCompWram
+                0x08000910                RLUnCompVram
+                0x08000914                Diff8bitUnFilterWram
+                0x08000918                Diff8bitUnFilterVram
+                0x0800091c                Diff16bitUnFilter
+                0x08000920                SoundBias
+                0x08000924                SoundDriverInit
+                0x08000928                SoundDriverMode
+                0x0800092c                SoundDriverMain
+                0x08000930                SoundDriverVSync
+                0x08000934                SoundChannelClear
+                0x08000938                MidiKey2Freq
+                0x0800093c                MultiBoot
+                0x08000940                SoundDriverVSyncOff
+                0x08000944                SoundDriverVSyncOn
+ .text          0x08000948       0x44 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_memcpy.o)
+                0x08000948                memcpy16
  .text.__libc_init_array
-                0x08000858       0x54 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-init.o)
-                0x08000858                __libc_init_array
- .text.memmove  0x080008ac      0x108 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-memmove.o)
-                0x080008ac                memmove
+                0x0800098c       0x54 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-init.o)
+                0x0800098c                __libc_init_array
+ .text.memmove  0x080009e0      0x108 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-memmove.o)
+                0x080009e0                memmove
  *(.gnu.linkonce.t.*)
  *(.text.*personality*)
  *(.gnu.warning)
  *(.glue_7t)
- .glue_7t       0x080009b4        0x0 linker stubs
+ .glue_7t       0x08000ae8        0x0 linker stubs
  *(.glue_7)
- .glue_7        0x080009b4        0x0 linker stubs
+ .glue_7        0x08000ae8        0x0 linker stubs
  *(.vfp11_veneer)
- .vfp11_veneer  0x080009b4        0x0 linker stubs
-                0x080009b4                        . = ALIGN (0x4)
-                0x080009b4                        __text_end = .
+ .vfp11_veneer  0x08000ae8        0x0 linker stubs
+                0x08000ae8                        . = ALIGN (0x4)
+                0x08000ae8                        __text_end = .
 
-.v4_bx          0x080009b4        0x0
- .v4_bx         0x080009b4        0x0 linker stubs
+.v4_bx          0x08000ae8        0x0
+ .v4_bx         0x08000ae8        0x0 linker stubs
 
-.iplt           0x080009b4        0x0
- .iplt          0x080009b4        0x0 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
+.iplt           0x08000ae8        0x0
+ .iplt          0x08000ae8        0x0 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
-.fini           0x080009b4        0xc
+.fini           0x08000ae8        0xc
  *(.fini)
- .fini          0x080009b4        0x4 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crti.o
-                0x080009b4                _fini
- .fini          0x080009b8        0x8 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtn.o
-                0x080009c0                        . = ALIGN (0x4)
+ .fini          0x08000ae8        0x4 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crti.o
+                0x08000ae8                _fini
+ .fini          0x08000aec        0x8 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtn.o
+                0x08000af4                        . = ALIGN (0x4)
 
-.rodata         0x080009c0     0x72f8
+.rodata         0x08000af4     0x5eb8
  *(.rodata)
- .rodata        0x080009c0     0x15a0 skiii_logo.o
-                0x080009c0                skiii_logoTiles
-                0x08001740                skiii_logoMap
-                0x08001f40                skiii_logoPal
- .rodata        0x08001f60     0x5d20 snow_floor.o
-                0x08001f60                snow_floorTiles
-                0x08006c60                snow_floorMap
-                0x08007c60                snow_floorPal
- .rodata        0x08007c80       0x38 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
+ .rodata        0x08000af4     0x1220 skiii_logo.o
+                0x08000af4                skiii_logoTiles
+                0x080014f4                skiii_logoMap
+                0x08001cf4                skiii_logoPal
+ .rodata        0x08001d14     0x4940 snow_floor32.o
+                0x08001d14                snow_floor32Tiles
+                0x08005e34                snow_floor32Map
+                0x08006634                snow_floor32Pal
+ .rodata        0x08006654      0x320 start.o
+                0x08006654                startTiles
+                0x08006954                startPal
+ .rodata        0x08006974       0x38 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
  *all.rodata*(*)
  *(.roda)
  *(.rodata.*)
  *(.gnu.linkonce.r*)
-                0x08007cb8                        . = ALIGN (0x4)
+                0x080069ac                        . = ALIGN (0x4)
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x08007cb8                        __exidx_start = .
+                0x080069ac                        __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x08007cb8                        __exidx_end = .
+                0x080069ac                        __exidx_end = .
 
-.ctors          0x08007cb8        0x0
+.ctors          0x080069ac        0x0
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
-                0x08007cb8                        . = ALIGN (0x4)
+                0x080069ac                        . = ALIGN (0x4)
 
-.dtors          0x08007cb8        0x0
+.dtors          0x080069ac        0x0
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
-                0x08007cb8                        . = ALIGN (0x4)
+                0x080069ac                        . = ALIGN (0x4)
 
-.eh_frame       0x08007cb8        0x4
+.eh_frame       0x080069ac        0x4
  *(.eh_frame)
- .eh_frame      0x08007cb8        0x0 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtbegin.o
- .eh_frame      0x08007cb8        0x4 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtend.o
-                0x08007cbc                        . = ALIGN (0x4)
+ .eh_frame      0x080069ac        0x0 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtbegin.o
+ .eh_frame      0x080069ac        0x4 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtend.o
+                0x080069b0                        . = ALIGN (0x4)
 
 .gcc_except_table
-                0x08007cbc        0x0
+                0x080069b0        0x0
  *(.gcc_except_table)
-                0x08007cbc                        . = ALIGN (0x4)
-                0x08007cbc                        __iwram_lma = .
+                0x080069b0                        . = ALIGN (0x4)
+                0x080069b0                        __iwram_lma = .
 
-.iwram          0x03000000      0x128 load address 0x08007cbc
+.iwram          0x03000000      0x128 load address 0x080069b0
                 0x03000000                        __iwram_start__ = ABSOLUTE (.)
  *(.iwram .iwram*)
  .iwram         0x03000000       0xa4 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_isr_master.o)
@@ -299,7 +318,7 @@ Linker script and memory map
  *iwram.*(.text* .data*)
                 0x03000128                        . = ALIGN (0x4)
                 0x03000128                        __iwram_end__ = ABSOLUTE (.)
-                0x08007de4                        __data_lma = (__iwram_lma + SIZEOF (.iwram))
+                0x08006ad8                        __data_lma = (__iwram_lma + SIZEOF (.iwram))
 
 .bss            0x03000128       0x9c
                 0x03000128                        __bss_start = ABSOLUTE (.)
@@ -323,51 +342,51 @@ Linker script and memory map
                 0x030001c4                        . = ALIGN (0x4)
                 0x030001c4                        __bss_end__ = ABSOLUTE (.)
 
-.data           0x030001c4        0x8 load address 0x08007de4
+.data           0x030001c4        0x8 load address 0x08006ad8
                 0x030001c4                        __data_start__ = ABSOLUTE (.)
  *(.data*)
  .data          0x030001c4        0x8 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_input.o)
                 0x030001c4                __key_rpt
  *(.gnu.linkonce.d*)
                 0x030001cc                        . = ALIGN (0x4)
-                0x08007dec                        __preinit_lma = (__data_lma + SIZEOF (.data))
+                0x08006ae0                        __preinit_lma = (__data_lma + SIZEOF (.data))
 
-.igot.plt       0x030001cc        0x0 load address 0x08007dec
+.igot.plt       0x030001cc        0x0 load address 0x08006ae0
  .igot.plt      0x030001cc        0x0 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
-.preinit_array  0x030001cc        0x0 load address 0x08007dec
+.preinit_array  0x030001cc        0x0 load address 0x08006ae0
                 0x030001cc                        __preinit_array_start = ABSOLUTE (.)
  *(.preinit_array)
                 0x030001cc                        __preinit_array_end = ABSOLUTE (.)
-                0x08007dec                        __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
+                0x08006ae0                        __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
 
-.init_array     0x030001cc        0x4 load address 0x08007dec
+.init_array     0x030001cc        0x4 load address 0x08006ae0
                 0x030001cc                        __init_array_start = ABSOLUTE (.)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
  .init_array    0x030001cc        0x4 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtbegin.o
                 0x030001d0                        __init_array_end = ABSOLUTE (.)
-                0x08007df0                        __fini_lma = (__init_lma + SIZEOF (.init_array))
+                0x08006ae4                        __fini_lma = (__init_lma + SIZEOF (.init_array))
 
-.fini_array     0x030001d0        0x4 load address 0x08007df0
+.fini_array     0x030001d0        0x4 load address 0x08006ae4
                 0x030001d0                        __fini_array_start = ABSOLUTE (.)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array)
  .fini_array    0x030001d0        0x4 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtbegin.o
                 0x030001d4                        __fini_array_end = ABSOLUTE (.)
-                0x08007df4                        __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
+                0x08006ae8                        __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
 
 .jcr
  *(.jcr)
                 0x030001d4                        __data_end__ = ABSOLUTE (.)
-                0x08007df4                        __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
+                0x08006ae8                        __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
                 0x030001d4                        __iwram_overlay_start = .
 
-.iwram0         0x030001d4        0x0 load address 0x08007df4
+.iwram0         0x030001d4        0x0 load address 0x08006ae8
  *(.iwram0)
                 0x030001d4                        . = ALIGN (0x4)
-                0x08007df4                        PROVIDE (__load_start_iwram0 = LOADADDR (.iwram0))
-                0x08007df4                        PROVIDE (__load_stop_iwram0 = (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
+                0x08006ae8                        PROVIDE (__load_start_iwram0 = LOADADDR (.iwram0))
+                0x08006ae8                        PROVIDE (__load_stop_iwram0 = (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
 
 .iwram1         0x030001d4        0x0
  *(.iwram1)
@@ -423,15 +442,15 @@ Linker script and memory map
                 [!provide]                        PROVIDE (__load_start_iwram9 = LOADADDR (.iwram9))
                 [!provide]                        PROVIDE (__load_stop_iwram9 = (LOADADDR (.iwram9) + SIZEOF (.iwram9)))
                 0x030001d4                        __iwram_overlay_end = .
-                0x08007df4                        __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
+                0x08006ae8                        __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
                 0x030001d4                        __iheap_start = .
                 0x02000000                        __ewram_start = ORIGIN (ewram)
 
-.ewram          0x02000000        0x0 load address 0x08007df4
+.ewram          0x02000000        0x0 load address 0x08006ae8
  *(.ewram*)
                 0x02000000                        . = ALIGN (0x4)
                 0x02000000                        __ewram_end = ABSOLUTE (.)
-                0x08007df4                        __pad_lma = (__ewram_lma + SIZEOF (.ewram))
+                0x08006ae8                        __pad_lma = (__ewram_lma + SIZEOF (.ewram))
 
 .sbss           0x02000000        0x0
                 0x02000000                        __sbss_start__ = ABSOLUTE (.)
@@ -441,13 +460,13 @@ Linker script and memory map
                 0x02000000                        __end__ = ABSOLUTE (.)
                 0x02000000                        __eheap_start = ABSOLUTE (.)
 
-.pad            0x02000000        0x8 load address 0x08007df4
+.pad            0x02000000        0x8 load address 0x08006ae8
                 0x02000000        0x4 LONG 0x52416b64
                 0x02000004        0x4 LONG 0x4d
                 0x02000008                        . = ALIGN (0x4)
-                0x08007dfc                        __rom_end__ = (__pad_lma + SIZEOF (.pad))
+                0x08006af0                        __rom_end__ = (__pad_lma + SIZEOF (.pad))
 
-.rel.dyn        0x02000008        0x0 load address 0x08007dfc
+.rel.dyn        0x02000008        0x0 load address 0x08006af0
  .rel.iplt      0x02000008        0x0 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
 .stab
@@ -482,6 +501,8 @@ Linker script and memory map
                                  0x24 (size before relaxing)
  .comment       0x0000003b        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
                                  0x24 (size before relaxing)
+ .comment       0x0000003b        0x0 /opt/devkitpro/libtonc/lib/libtonc.a(tonc_oam.o)
+                                 0x24 (size before relaxing)
  .comment       0x0000003b        0x0 /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtend.o
                                  0x19 (size before relaxing)
 
@@ -509,37 +530,37 @@ Linker script and memory map
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x799
+.debug_info     0x00000000      0x959
  *(.debug_info)
- .debug_info    0x00000000      0x344 boot_loader.o
- .debug_info    0x00000344      0x381 skiii.o
- .debug_info    0x000006c5       0xd4 ui_manager.o
+ .debug_info    0x00000000      0x504 boot_loader.o
+ .debug_info    0x00000504      0x381 skiii.o
+ .debug_info    0x00000885       0xd4 ui_manager.o
 
-.debug_abbrev   0x00000000      0x3c0
+.debug_abbrev   0x00000000      0x47f
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x151 boot_loader.o
- .debug_abbrev  0x00000151      0x1e1 skiii.o
- .debug_abbrev  0x00000332       0x8e ui_manager.o
+ .debug_abbrev  0x00000000      0x210 boot_loader.o
+ .debug_abbrev  0x00000210      0x1e1 skiii.o
+ .debug_abbrev  0x000003f1       0x8e ui_manager.o
 
-.debug_line     0x00000000      0x499
+.debug_line     0x00000000      0x518
  *(.debug_line)
- .debug_line    0x00000000      0x1df boot_loader.o
- .debug_line    0x000001df      0x235 skiii.o
- .debug_line    0x00000414       0x85 ui_manager.o
+ .debug_line    0x00000000      0x25f boot_loader.o
+ .debug_line    0x0000025f      0x234 skiii.o
+ .debug_line    0x00000493       0x85 ui_manager.o
 
-.debug_frame    0x00000000       0x90
+.debug_frame    0x00000000       0x94
  *(.debug_frame)
- .debug_frame   0x00000000       0x38 boot_loader.o
- .debug_frame   0x00000038       0x38 skiii.o
- .debug_frame   0x00000070       0x20 ui_manager.o
+ .debug_frame   0x00000000       0x3c boot_loader.o
+ .debug_frame   0x0000003c       0x38 skiii.o
+ .debug_frame   0x00000074       0x20 ui_manager.o
 
-.debug_str      0x00000000      0x441
+.debug_str      0x00000000      0x4b6
  *(.debug_str)
- .debug_str     0x00000000      0x441 boot_loader.o
-                                0x264 (size before relaxing)
- .debug_str     0x00000441        0x0 skiii.o
-                                0x370 (size before relaxing)
- .debug_str     0x00000441        0x0 ui_manager.o
+ .debug_str     0x00000000      0x4b6 boot_loader.o
+                                0x2dd (size before relaxing)
+ .debug_str     0x000004b6        0x0 skiii.o
+                                0x374 (size before relaxing)
+ .debug_str     0x000004b6        0x0 ui_manager.o
                                 0x198 (size before relaxing)
 
 .debug_loc
@@ -587,31 +608,37 @@ Linker script and memory map
  .ARM.attributes
                 0x0000010e       0x1a skiii_logo.o
  .ARM.attributes
-                0x00000128       0x1a snow_floor.o
+                0x00000128       0x1a snow_floor32.o
  .ARM.attributes
-                0x00000142       0x2a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_input.o)
+                0x00000142       0x1a snow_floor.o
  .ARM.attributes
-                0x0000016c       0x2a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
+                0x0000015c       0x1a start.o
  .ARM.attributes
-                0x00000196       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_bios.o)
+                0x00000176       0x2a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_input.o)
  .ARM.attributes
-                0x000001b0       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_isr_master.o)
+                0x000001a0       0x2a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_irq.o)
  .ARM.attributes
-                0x000001ca       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_memcpy.o)
+                0x000001ca       0x2a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_oam.o)
  .ARM.attributes
-                0x000001e4       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_memset.o)
+                0x000001f4       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_bios.o)
  .ARM.attributes
-                0x000001fe       0x1c /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/libgcc.a(_sync_none.o)
+                0x0000020e       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_isr_master.o)
  .ARM.attributes
-                0x0000021a       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-init.o)
+                0x00000228       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_memcpy.o)
  .ARM.attributes
-                0x00000244       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-memmove.o)
+                0x00000242       0x1a /opt/devkitpro/libtonc/lib/libtonc.a(tonc_memset.o)
  .ARM.attributes
-                0x0000026e       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libsysbase.a(libsysbase_libsysbase_a-malloc_vars.o)
+                0x0000025c       0x1c /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/libgcc.a(_sync_none.o)
  .ARM.attributes
-                0x00000298       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtend.o
+                0x00000278       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-init.o)
  .ARM.attributes
-                0x000002c2       0x1c /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtn.o
+                0x000002a2       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libg.a(libc_a-memmove.o)
+ .ARM.attributes
+                0x000002cc       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/../../../../arm-none-eabi/lib/thumb/libsysbase.a(libsysbase_libsysbase_a-malloc_vars.o)
+ .ARM.attributes
+                0x000002f6       0x2a /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtend.o
+ .ARM.attributes
+                0x00000320       0x1c /opt/devkitpro/devkitARM/lib/gcc/arm-none-eabi/15.2.0/thumb/crtn.o
 
 /DISCARD/
  *(.note.GNU-stack)
@@ -623,7 +650,9 @@ LOAD menu_navigation_manager.o
 LOAD skiii.o
 LOAD ui_manager.o
 LOAD skiii_logo.o
+LOAD snow_floor32.o
 LOAD snow_floor.o
+LOAD start.o
 LOAD /opt/devkitpro/libgba/lib/libmm.a
 LOAD /opt/devkitpro/libtonc/lib/libtonc.a
 START GROUP
@@ -638,11 +667,15 @@ OUTPUT(/home/tom/Documents/Development/Skiii-gba/Skiii-gba.elf elf32-littlearm)
 LOAD linker stubs
 
 .debug_loclists
-                0x00000000       0x6c
+                0x00000000       0xcb
  .debug_loclists
-                0x00000000       0x6c skiii.o
+                0x00000000       0x60 boot_loader.o
+ .debug_loclists
+                0x00000060       0x6b skiii.o
 
 .debug_rnglists
-                0x00000000       0x2b
+                0x00000000       0x42
  .debug_rnglists
-                0x00000000       0x2b skiii.o
+                0x00000000       0x17 boot_loader.o
+ .debug_rnglists
+                0x00000017       0x2b skiii.o
