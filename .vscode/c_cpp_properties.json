@@ -1,10 +1,25 @@
 {
     "configurations": [
         {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/devkitPro/libtonc/include",
+                "C:/devkitPro/libgba/include",
+                "C:/devkitPro/devkitARM/arm-none-eabi/include"
+            ],
+            "defines": [
+                "__DEVKITARM__"
+            ],
+            "compilerPath": "C:/devkitPro/devkitARM/bin/arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-arm"
+        },
+        {
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/devkitpro/",
                 "/opt/devkitpro/libtonc/include",
                 "/opt/devkitpro/libgba/include",
                 "/opt/devkitpro/devkitARM/arm-none-eabi/include"
@@ -12,7 +27,7 @@
             "defines": [
                 "__DEVKITARM__"
             ],
-            "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc",
+            "compilerPath": "c:\\Users\\super\\Documents\\Development\\Skiii-gba\\.vscode\\c_cpp_properties.json",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "linux-gcc-arm"

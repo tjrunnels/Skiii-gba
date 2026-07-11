@@ -1,42 +1,42 @@
 boot_loader.o: \
- /home/tom/Documents/Development/Skiii-gba/source/boot_loader.c \
- /home/tom/Documents/Development/Skiii-gba/source/boot_loader.h \
- /home/tom/Documents/Development/Skiii-gba/build/skiii_logo.h \
- /home/tom/Documents/Development/Skiii-gba/build/snow_floor.h \
- /home/tom/Documents/Development/Skiii-gba/build/snow_floor32.h \
- /home/tom/Documents/Development/Skiii-gba/build/start.h \
- /opt/devkitpro/libtonc/include/tonc.h \
- /opt/devkitpro/libtonc/include/tonc_types.h \
- /opt/devkitpro/libtonc/include/tonc_memmap.h \
- /opt/devkitpro/libtonc/include/tonc_memdef.h \
- /opt/devkitpro/libtonc/include/tonc_bios.h \
- /opt/devkitpro/libtonc/include/tonc_core.h \
- /opt/devkitpro/libtonc/include/tonc_input.h \
- /opt/devkitpro/libtonc/include/tonc_irq.h \
- /opt/devkitpro/libtonc/include/tonc_math.h \
- /opt/devkitpro/libtonc/include/tonc_oam.h \
- /opt/devkitpro/libtonc/include/tonc_tte.h \
- /opt/devkitpro/libtonc/include/tonc_surface.h \
- /opt/devkitpro/libtonc/include/tonc_video.h \
- /opt/devkitpro/libtonc/include/tonc_nocash.h \
- /opt/devkitpro/libtonc/include/tonc_text.h
-/home/tom/Documents/Development/Skiii-gba/source/boot_loader.h:
-/home/tom/Documents/Development/Skiii-gba/build/skiii_logo.h:
-/home/tom/Documents/Development/Skiii-gba/build/snow_floor.h:
-/home/tom/Documents/Development/Skiii-gba/build/snow_floor32.h:
-/home/tom/Documents/Development/Skiii-gba/build/start.h:
-/opt/devkitpro/libtonc/include/tonc.h:
-/opt/devkitpro/libtonc/include/tonc_types.h:
-/opt/devkitpro/libtonc/include/tonc_memmap.h:
-/opt/devkitpro/libtonc/include/tonc_memdef.h:
-/opt/devkitpro/libtonc/include/tonc_bios.h:
-/opt/devkitpro/libtonc/include/tonc_core.h:
-/opt/devkitpro/libtonc/include/tonc_input.h:
-/opt/devkitpro/libtonc/include/tonc_irq.h:
-/opt/devkitpro/libtonc/include/tonc_math.h:
-/opt/devkitpro/libtonc/include/tonc_oam.h:
-/opt/devkitpro/libtonc/include/tonc_tte.h:
-/opt/devkitpro/libtonc/include/tonc_surface.h:
-/opt/devkitpro/libtonc/include/tonc_video.h:
-/opt/devkitpro/libtonc/include/tonc_nocash.h:
-/opt/devkitpro/libtonc/include/tonc_text.h:
+ C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.c \
+ C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/skiii_logo.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor32.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/start.h \
+ C:/devkitPro/libtonc/include/tonc.h \
+ C:/devkitPro/libtonc/include/tonc_types.h \
+ C:/devkitPro/libtonc/include/tonc_memmap.h \
+ C:/devkitPro/libtonc/include/tonc_memdef.h \
+ C:/devkitPro/libtonc/include/tonc_bios.h \
+ C:/devkitPro/libtonc/include/tonc_core.h \
+ C:/devkitPro/libtonc/include/tonc_input.h \
+ C:/devkitPro/libtonc/include/tonc_irq.h \
+ C:/devkitPro/libtonc/include/tonc_math.h \
+ C:/devkitPro/libtonc/include/tonc_oam.h \
+ C:/devkitPro/libtonc/include/tonc_tte.h \
+ C:/devkitPro/libtonc/include/tonc_surface.h \
+ C:/devkitPro/libtonc/include/tonc_video.h \
+ C:/devkitPro/libtonc/include/tonc_nocash.h \
+ C:/devkitPro/libtonc/include/tonc_text.h
+C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/skiii_logo.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor32.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/start.h:
+C:/devkitPro/libtonc/include/tonc.h:
+C:/devkitPro/libtonc/include/tonc_types.h:
+C:/devkitPro/libtonc/include/tonc_memmap.h:
+C:/devkitPro/libtonc/include/tonc_memdef.h:
+C:/devkitPro/libtonc/include/tonc_bios.h:
+C:/devkitPro/libtonc/include/tonc_core.h:
+C:/devkitPro/libtonc/include/tonc_input.h:
+C:/devkitPro/libtonc/include/tonc_irq.h:
+C:/devkitPro/libtonc/include/tonc_math.h:
+C:/devkitPro/libtonc/include/tonc_oam.h:
+C:/devkitPro/libtonc/include/tonc_tte.h:
+C:/devkitPro/libtonc/include/tonc_surface.h:
+C:/devkitPro/libtonc/include/tonc_video.h:
+C:/devkitPro/libtonc/include/tonc_nocash.h:
+C:/devkitPro/libtonc/include/tonc_text.h:
