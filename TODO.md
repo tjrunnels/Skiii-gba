@@ -1,4 +1,4 @@
-- [ ] add the flag icon
+- [x] add the flag icon
 - [ ] draw the flag icon for the menu nav location 
 - [ ] add the "options" image, add the graphic to the main menu
 - [ ] have the select action for options be to change the menu state

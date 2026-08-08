@@ -1,0 +1,27 @@
+-gB4 -m! -pn16
+
+# HOW TO USE 
+# # Load the palette and tiles once
+# #include "objects.h"
+# `
+# memcpy16(pal_obj_mem, objectsPal,
+         # objectsPalLen / sizeof(u16));
+# 
+# memcpy32(&tile_mem[4][0], objectsTiles,
+         # objectsTilesLen / sizeof(u32));
+# `
+# 
+# # Select each sprite by tile offset
+# `
+# flag       -> ATTR2_ID(0)
+# skier      -> ATTR2_ID(4)
+# skier_right -> ATTR2_ID(8)
+# skier_left  -> ATTR2_ID(12)
+# `
+# 
+# # for example
+# `
+# object->attr0 = ATTR0_REG | ATTR0_4BPP;
+# object->attr1 = ATTR1_SIZE_16x16;
+# object->attr2 = ATTR2_ID(4) | ATTR2_PALBANK(0);
+# `
