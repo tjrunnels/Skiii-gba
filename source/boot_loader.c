@@ -4,6 +4,7 @@
 #include "snow_floor32.h"
 #include "start.h"
 #include <tonc.h>
+#include "square_objects.h"
 
 /*
  * Boot Asset Memory Map
@@ -23,8 +24,9 @@
  * Object palette memory: pal_obj_mem, 0x05000200
  * ---------------------------------------------------------------------------
  * Bank / range        Owner / asset                         Notes
- * 0 / colors 0-15     unassigned                            TODO
- * 1-15                unassigned                            TODO
+ * 0 / colors 0-15     start                                 pal_obj_mem
+ * 1 / colors 16-31    square_objects                        pal_obj_mem + 16
+ * 2-15                unassigned
  *
  * Background charblocks: tile_mem[CBB], VRAM starting at 0x06000000
  * ---------------------------------------------------------------------------
@@ -39,16 +41,40 @@
  *
  * Object tile memory: object VRAM, commonly tile_mem[4], 0x06010000
  * ---------------------------------------------------------------------------
- * Tile range          Owner / asset                         Notes
- * TODO                unassigned                            TODO
+ * Each index is one 8x8 tile (32 bytes). The PPU does not care how tall the
+ * PNG was; it reads however many tiles ATTR1_SIZE says.
  *
+ * START image is 64x24 (24 tiles). START's object is 64x32, which reads 32
+ * tiles. Those two numbers are the collision:
+ *
+ *          8 tiles wide (64px)
+ *        +--+--+--+--+--+--+--+--+
+ *   0-7  |        START row 0        |  real pixels
+ *  8-15  |        START row 1        |  real pixels
+ * 16-23  |        START row 2        |  real pixels (image ends)
+ * 24-31  |        MUST BE 0'd        |  64x32 object still reads this
+ *        +--+--+--+--+--+--+--+--+
+ * 32-47  | square_objects (16 tiles) |  safe home after the 32-tile slot
+ *        +--+--+--+--+--+--+--+--+
+ *
+ * Tile range          Owner / asset                         Notes
+ * 0-23                start graphics                        grit: 64x24@4, 24 tiles
+ * 24-31               also start graphics but unneeded      ATTR1_SIZE_64x32 will read ids 0-31. Make sure this is 0'd out or you could get artifacts.
+ * 32-47               square_objects (intended)             ATTR1_SIZE_16x16
+ * *
  * OAM: oam_mem, 0x07000000
  * ---------------------------------------------------------------------------
  * OAM index           Owner / asset                         Notes
- * TODO                unassigned                            TODO
+ * 0                   start icon                            allObjects[0], ATTR2_ID(0 since it's not a sheet, just a single image)
+ * 1                   menu flag                             allObjects[1], ATTR2_ID(sheet base)
+ * 2-127               hidden by oam_init
  */
 
-void load_boot_assets(void) {
+OBJ_ATTR allObjects[128];
+
+BootReturn load_boot_assets(void) {
+
+  BootReturn to_return;
 
   // SNOW_FLOOR
   // Load snow_floor palette into background palette memory.
@@ -76,21 +102,41 @@ void load_boot_assets(void) {
   // Load start palette into object palette memory
   memcpy16(pal_obj_mem, startPal, startPalLen / sizeof(u16));
 
-  // Load start tiles into object tile memory
+  // Load start tiles into object tile memory (only loads the 24 tiles worth of data that the image is made of)
   memcpy32(&tile_mem[4][0], startTiles, startTilesLen / sizeof(u32));
-
-  //something with OAm
-  
-  OBJ_ATTR allObjects[128];
+  // Zero out the rest of the 32-tile slot that the ATTR1_SIZE_64x32 will read, to avoid artifacts.
+  memset32(&tile_mem[4][startTilesLen / sizeof(TILE)], 0, 8 * sizeof(TILE) / sizeof(u32)); // 8 tiles left to fill out the 32-tile slot
+/*                          ^^^^^^^^ tiles = 24                    ^^^^^^^^ words = 64        */
+  // Init all of OAm objects
   oam_init(allObjects, 128);
+
+  //use position 0
   OBJ_ATTR *startIcon = &allObjects[0];
   startIcon->attr0 = ATTR0_Y(100) | ATTR0_REG | ATTR0_4BPP | ATTR0_SHAPE(1);
-  startIcon->attr1 = ATTR1_X(88) | ATTR1_SIZE_64x32;
+  startIcon->attr1 = ATTR1_X(88) | ATTR1_SIZE_64x32; // the object now owns 32 tiles worth of RAM, not just the 24
   startIcon->attr2 = ATTR2_ID(0);
 
-  oam_copy(oam_mem, allObjects, 1);
 
-  
+  // Load the flag icon into OAM
+  // First object palette memory
+  memcpy16(pal_obj_mem + 16, square_objectsPal, square_objectsPalLen / sizeof(u16));
+
+  int START_BUTTON_TILE_COUNT = 32; // because the OBJECT that holds the tiles is 32 "tiles" long
+
+  //then load all the tiles into object tile memory
+  memcpy32(&tile_mem[4][START_BUTTON_TILE_COUNT], square_objectsTiles, square_objectsTilesLen / sizeof(u32));
+
+  //use position 1 of OAM
+  OBJ_ATTR *flag_icon = &allObjects[1];
+  flag_icon->attr0 = ATTR0_REG | ATTR0_4BPP;
+  flag_icon->attr1 = ATTR1_SIZE_16x16;
+  flag_icon->attr2 = ATTR2_ID(START_BUTTON_TILE_COUNT) | ATTR2_PALBANK(1);
+
+  to_return.flag_icon = flag_icon;
+
+  oam_copy(oam_mem, allObjects, 2);
+
+  return to_return;
 }
 
 void enable_running_snow_background_0(void) {
