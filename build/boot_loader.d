@@ -1,10 +1,6 @@
 boot_loader.o: \
  C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.c \
  C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h \
- C:/Users/super/Documents/Development/Skiii-gba/build/skiii_logo.h \
- C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h \
- C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor32.h \
- C:/Users/super/Documents/Development/Skiii-gba/build/start.h \
  C:/devkitPro/libtonc/include/tonc.h \
  C:/devkitPro/libtonc/include/tonc_types.h \
  C:/devkitPro/libtonc/include/tonc_memmap.h \
@@ -19,12 +15,13 @@ boot_loader.o: \
  C:/devkitPro/libtonc/include/tonc_surface.h \
  C:/devkitPro/libtonc/include/tonc_video.h \
  C:/devkitPro/libtonc/include/tonc_nocash.h \
- C:/devkitPro/libtonc/include/tonc_text.h
+ C:/devkitPro/libtonc/include/tonc_text.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/skiii_logo.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor32.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/start.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/square_objects.h
 C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h:
-C:/Users/super/Documents/Development/Skiii-gba/build/skiii_logo.h:
-C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h:
-C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor32.h:
-C:/Users/super/Documents/Development/Skiii-gba/build/start.h:
 C:/devkitPro/libtonc/include/tonc.h:
 C:/devkitPro/libtonc/include/tonc_types.h:
 C:/devkitPro/libtonc/include/tonc_memmap.h:
@@ -40,3 +37,8 @@ C:/devkitPro/libtonc/include/tonc_surface.h:
 C:/devkitPro/libtonc/include/tonc_video.h:
 C:/devkitPro/libtonc/include/tonc_nocash.h:
 C:/devkitPro/libtonc/include/tonc_text.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/skiii_logo.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor32.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/start.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/square_objects.h:

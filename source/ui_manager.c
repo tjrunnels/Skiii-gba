@@ -15,7 +15,7 @@ void change_ui_state(ProgramState state) {
     // startup the menu navigation system
     static MenuNode main_menu_nodes[3] = {
       // x, y, up, down, left, right, select
-      { 120, 40, NULL, &main_menu_nodes[1], NULL, NULL, printHi },
+      { 65, 102, NULL, &main_menu_nodes[1], NULL, NULL, printHi },
       { 120, 80, &main_menu_nodes[0], &main_menu_nodes[2], NULL, NULL, NULL },
       { 120, 120, &main_menu_nodes[1], NULL, NULL, NULL, NULL }
     };

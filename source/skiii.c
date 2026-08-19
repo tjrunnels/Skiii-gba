@@ -8,6 +8,8 @@
 
 // GBA resolution: 240 x 160
 
+// TODO: move this to a header file.  Just want to test this for now
+extern OBJ_ATTR allObjects[128];
 
 int main() {
   // Setup the GBA program
@@ -19,7 +21,7 @@ int main() {
   irq_add(II_VBLANK, NULL);
 
   // Load all assets that have a fixed memory home for the whole program.
-  load_boot_assets();
+  BootReturn bootReturn = load_boot_assets();
   enable_running_snow_background_0();
 
   if (dlog_open()) {
@@ -56,6 +58,10 @@ int main() {
       }
 
       // mgbaprintf("Current menu node: (%d, %d)\n", get_current()->x, get_current()->y);
+      bootReturn.flag_icon->attr0 = (bootReturn.flag_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(get_current()->y);
+      bootReturn.flag_icon->attr1 = (bootReturn.flag_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(get_current()->x);
+
+      oam_copy(oam_mem, allObjects, 2);
     }
   }
 
