@@ -3,6 +3,7 @@
 #include "snow_floor.h"
 #include "snow_floor32.h"
 #include "start.h"
+#include "options.h"
 #include <tonc.h>
 #include "square_objects.h"
 
@@ -76,7 +77,11 @@ BootReturn load_boot_assets(void) {
 
   BootReturn to_return;
 
+  // Init all of OAm objects
+  oam_init(allObjects, 128);
+
   // SNOW_FLOOR
+  /////////////////////////// 
   // Load snow_floor palette into background palette memory.
   memcpy16(pal_bg_mem, snow_floor32Pal, snow_floor32PalLen / sizeof(u16));
 
@@ -88,6 +93,7 @@ BootReturn load_boot_assets(void) {
 
 
   // SKIII_LOGO
+  /////////////////////////// 
   // Load skiii_logo palette into its planned background palette bank.
   memcpy16(pal_bg_mem + 16, skiii_logoPal, skiii_logoPalLen / sizeof(u16));
 
@@ -98,7 +104,11 @@ BootReturn load_boot_assets(void) {
   memcpy32(&se_mem[24][0], skiii_logoMap, skiii_logoMapLen / sizeof(u32));
 
 
+
+  int LOADED_TILE_COUNT = 0;
+
   ///START image
+  /////////////////////////// 
   // Load start palette into object palette memory
   memcpy16(pal_obj_mem, startPal, startPalLen / sizeof(u16));
 
@@ -107,34 +117,55 @@ BootReturn load_boot_assets(void) {
   // Zero out the rest of the 32-tile slot that the ATTR1_SIZE_64x32 will read, to avoid artifacts.
   memset32(&tile_mem[4][startTilesLen / sizeof(TILE)], 0, 8 * sizeof(TILE) / sizeof(u32)); // 8 tiles left to fill out the 32-tile slot
 /*                          ^^^^^^^^ tiles = 24                    ^^^^^^^^ words = 64        */
-  // Init all of OAm objects
-  oam_init(allObjects, 128);
 
   //use position 0
-  OBJ_ATTR *startIcon = &allObjects[0];
-  startIcon->attr0 = ATTR0_Y(100) | ATTR0_REG | ATTR0_4BPP | ATTR0_SHAPE(1);
-  startIcon->attr1 = ATTR1_X(88) | ATTR1_SIZE_64x32; // the object now owns 32 tiles worth of RAM, not just the 24
-  startIcon->attr2 = ATTR2_ID(0);
+  OBJ_ATTR *start_icon = &allObjects[0];
+  start_icon->attr0 = ATTR0_Y(100) | ATTR0_HIDE | ATTR0_4BPP | ATTR0_SHAPE(1);
+  start_icon->attr1 = ATTR1_X(88) | ATTR1_SIZE_64x32; // the object now owns 32 tiles worth of RAM, not just the 24
+  start_icon->attr2 = ATTR2_ID(0);
+  to_return.start_icon = start_icon;
 
+  LOADED_TILE_COUNT += 32;
 
-  // Load the flag icon into OAM
-  // First object palette memory
-  memcpy16(pal_obj_mem + 16, square_objectsPal, square_objectsPalLen / sizeof(u16));
+  ///OPTIONS image
+  /////////////////////////// 
+  // Load options palette into object palette memory
+  memcpy16(pal_obj_mem + 16, optionsPal, optionsPalLen / sizeof(u16));
 
-  int START_BUTTON_TILE_COUNT = 32; // because the OBJECT that holds the tiles is 32 "tiles" long
-
-  //then load all the tiles into object tile memory
-  memcpy32(&tile_mem[4][START_BUTTON_TILE_COUNT], square_objectsTiles, square_objectsTilesLen / sizeof(u32));
+  // Load options tiles into object tile memory (only loads the 16 tiles worth of data that the image is made of)
+  memcpy32(&tile_mem[4][LOADED_TILE_COUNT], optionsTiles, optionsTilesLen / sizeof(u32));
+  // Zero out the rest of the 32-tile slot that the ATTR1_SIZE_64x32 will read, to avoid artifacts.
+  memset32(&tile_mem[4][optionsTilesLen / sizeof(TILE)], 0, 8 * sizeof(TILE) / sizeof(u32)); // 16 tiles left to fill out the 32-tile slot
+  /*                          ^^^^^^^^ tiles = 16                    ^^^^^^^^ words = 64        */
 
   //use position 1 of OAM
-  OBJ_ATTR *flag_icon = &allObjects[1];
-  flag_icon->attr0 = ATTR0_REG | ATTR0_4BPP;
+  OBJ_ATTR *options_icon =  &allObjects[1];
+  options_icon->attr0 = ATTR0_Y(130) | ATTR0_HIDE | ATTR0_4BPP | ATTR0_SHAPE(1);
+  options_icon->attr1 = ATTR1_X(88) | ATTR1_SIZE_64x32; // the object now owns 32 tiles worth of RAM, not just the 24
+  options_icon->attr2 = ATTR2_ID(LOADED_TILE_COUNT)  | ATTR2_PALBANK(1);
+  to_return.options_icon = options_icon;
+
+
+  LOADED_TILE_COUNT += 32;
+
+  // FLAG icon
+  ///////////////////////////   
+  // Load the flag icon into OAM
+  // First object palette memory
+  memcpy16(pal_obj_mem + 32, square_objectsPal, square_objectsPalLen / sizeof(u16));
+
+  //then load all the tiles into object tile memory
+  memcpy32(&tile_mem[4][LOADED_TILE_COUNT], square_objectsTiles, square_objectsTilesLen / sizeof(u32));
+
+  //use position 1 of OAM
+  OBJ_ATTR *flag_icon =  &allObjects[2];
+  flag_icon->attr0 = ATTR0_REG | ATTR0_4BPP | ATTR0_HIDE;
   flag_icon->attr1 = ATTR1_SIZE_16x16;
-  flag_icon->attr2 = ATTR2_ID(START_BUTTON_TILE_COUNT) | ATTR2_PALBANK(1);
+  flag_icon->attr2 = ATTR2_ID(LOADED_TILE_COUNT) | ATTR2_PALBANK(2);
 
   to_return.flag_icon = flag_icon;
 
-  oam_copy(oam_mem, allObjects, 2);
+  oam_copy(oam_mem, allObjects, 3);
 
   return to_return;
 }

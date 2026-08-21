@@ -1,6 +1,6 @@
 - [x] add the flag icon
 - [x] draw the flag icon for the menu nav location 
-- [ ] add the "options" image, add the graphic to the main menu
+- [x] add the "options" image, add the graphic to the main menu
 - [ ] have the select action for options be to change the menu state
 - [ ] 
 - [ ] 
@@ -8,6 +8,6 @@
 - [ ] 
 - [ ] 
 - [ ] 
-- [ ] 
+- [ ] update the snow background to be higher contrast so it's visible on original GBA
 - [ ] polish
 - [ ] go gold
