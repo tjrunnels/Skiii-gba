@@ -45,8 +45,10 @@ int main() {
     if(game_state != SKI) {
       // keybindings move the menu navigation system
       if (key_hit(KEY_UP)) {
+        bootReturn.player_icon->attr2 += 4;
         menu_nav_up();
       } else if (key_hit(KEY_DOWN)) {
+        bootReturn.player_icon->attr2 -= 4;
         menu_nav_down();
       } else if (key_hit(KEY_LEFT)) {
         menu_nav_left();
@@ -59,8 +61,10 @@ int main() {
       // mgbaprintf("Current menu node: (%d, %d)\n", get_current()->x, get_current()->y);
       bootReturn.flag_icon->attr0 = (bootReturn.flag_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(get_current()->y);
       bootReturn.flag_icon->attr1 = (bootReturn.flag_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(get_current()->x);
+      bootReturn.player_icon->attr1 = (bootReturn.player_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(0);
+      bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(0);
 
-      oam_copy(oam_mem, allObjects, 3);
+      oam_copy(oam_mem, allObjects, 4);
     }
   }
 

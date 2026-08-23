@@ -16,7 +16,7 @@ static void change_state_to_options(void) {
 }
 
 static void hide_all_objects(void){
-  for (int i; i < 128; i++) {
+  for (int i = 0; i < 128; i++) {
     (&allObjects[i])->attr0 |= 1 << 9; // sets the hide bit on all
   }
   oam_copy(oam_mem, allObjects, 128);
@@ -32,7 +32,8 @@ void change_ui_state(ProgramState state) {
     (&allObjects[0])->attr0 &= ~(1 << 9); //the 9th bit of OAM is the difference between hidden (10) and regular (00)
     (&allObjects[1])->attr0  &= ~(1 << 9);
     (&allObjects[2])->attr0  &= ~(1 << 9);
-    oam_copy(oam_mem, allObjects, 3);
+    (&allObjects[3])->attr0  &= ~(1 << 9);
+    oam_copy(oam_mem, allObjects, 4);
 
 
     // startup the menu navigation system

@@ -104,13 +104,13 @@ BootReturn load_boot_assets(void) {
   memcpy32(&se_mem[24][0], skiii_logoMap, skiii_logoMapLen / sizeof(u32));
 
 
-
+  int LOADED_PAL_COUNT = 0;
   int LOADED_TILE_COUNT = 0;
 
   ///START image
   /////////////////////////// 
   // Load start palette into object palette memory
-  memcpy16(pal_obj_mem, startPal, startPalLen / sizeof(u16));
+  memcpy16(pal_obj_mem + LOADED_PAL_COUNT, startPal, startPalLen / sizeof(u16));
 
   // Load start tiles into object tile memory (only loads the 24 tiles worth of data that the image is made of)
   memcpy32(&tile_mem[4][0], startTiles, startTilesLen / sizeof(u32));
@@ -125,12 +125,13 @@ BootReturn load_boot_assets(void) {
   start_icon->attr2 = ATTR2_ID(0);
   to_return.start_icon = start_icon;
 
+  LOADED_PAL_COUNT += 16;
   LOADED_TILE_COUNT += 32;
 
   ///OPTIONS image
   /////////////////////////// 
   // Load options palette into object palette memory
-  memcpy16(pal_obj_mem + 16, optionsPal, optionsPalLen / sizeof(u16));
+  memcpy16(pal_obj_mem + LOADED_PAL_COUNT, optionsPal, optionsPalLen / sizeof(u16));
 
   // Load options tiles into object tile memory (only loads the 16 tiles worth of data that the image is made of)
   memcpy32(&tile_mem[4][LOADED_TILE_COUNT], optionsTiles, optionsTilesLen / sizeof(u32));
@@ -146,18 +147,19 @@ BootReturn load_boot_assets(void) {
   to_return.options_icon = options_icon;
 
 
+  LOADED_PAL_COUNT += 16;
   LOADED_TILE_COUNT += 32;
 
   // FLAG icon
   ///////////////////////////   
   // Load the flag icon into OAM
   // First object palette memory
-  memcpy16(pal_obj_mem + 32, square_objectsPal, square_objectsPalLen / sizeof(u16));
+  memcpy16(pal_obj_mem + LOADED_PAL_COUNT, square_objectsPal, square_objectsPalLen / sizeof(u16));
 
   //then load all the tiles into object tile memory
   memcpy32(&tile_mem[4][LOADED_TILE_COUNT], square_objectsTiles, square_objectsTilesLen / sizeof(u32));
 
-  //use position 1 of OAM
+  //use position 2 of OAM
   OBJ_ATTR *flag_icon =  &allObjects[2];
   flag_icon->attr0 = ATTR0_REG | ATTR0_4BPP | ATTR0_HIDE;
   flag_icon->attr1 = ATTR1_SIZE_16x16;
@@ -165,7 +167,19 @@ BootReturn load_boot_assets(void) {
 
   to_return.flag_icon = flag_icon;
 
-  oam_copy(oam_mem, allObjects, 3);
+  // PLAYER icon
+  ///////////////////////////   
+  //the palatte and sprites are already loaded
+
+  //use position 3 of OAM
+  OBJ_ATTR *player_icon =  &allObjects[3];
+  player_icon->attr0 = ATTR0_REG | ATTR0_4BPP | ATTR0_HIDE;
+  player_icon->attr1 = ATTR1_SIZE_16x16;
+  player_icon->attr2 = ATTR2_ID(LOADED_TILE_COUNT + 4) | ATTR2_PALBANK(2);
+
+  to_return.player_icon = player_icon;
+
+  oam_copy(oam_mem, allObjects, 4);
 
   return to_return;
 }

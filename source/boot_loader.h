@@ -7,6 +7,7 @@ typedef struct {
     OBJ_ATTR *start_icon;
     OBJ_ATTR *options_icon;
     OBJ_ATTR *flag_icon;
+    OBJ_ATTR *player_icon;
 } BootReturn;
 
 BootReturn load_boot_assets(void);
