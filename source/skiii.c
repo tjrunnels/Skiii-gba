@@ -7,17 +7,22 @@
 #include <tonc.h>
 
 // GBA resolution: 240 x 160
+ProgramState game_state = MENU;
+void set_game_state(ProgramState new_state) {
+    game_state = new_state;
+}
 
 int main() {
-  // Setup the GBA program
-  ProgramState game_state = MENU;
-
   // Load all assets that have a fixed memory home for the whole program.
   BootReturn bootReturn = load_boot_assets();
   enable_running_snow_background_0();
-  
+
+  // Setup the GBA program
+  set_game_state(MENU);
   change_ui_state(game_state);
 
+
+  
   // Init interrupts and VBlank irq.
   irq_init(NULL);
   irq_add(II_VBLANK, NULL);
@@ -27,12 +32,26 @@ int main() {
     mgbaprintf("mGBA logging ready\n");
   }
 
+  // gameplay variables
+  SkiStartAnimation in_ski_start_animation = STANDBY;
+
   // Scroll around some
   short int SCROLL_DELTA_X = 192/8;
   short int SCROLL_DELTA_Y = 64;
 
   // main game loop
   while (1) {
+    if(game_state == MENU) {
+      print("state: menu");
+    } else if (game_state == OPTIONS) {
+      print("state: options");
+    } else if (game_state == SKI) {
+      print("state: Ski");
+    } else if (game_state == CREDITS) {
+      print("state: credits");
+    }
+
+
     VBlankIntrWait(); //  Wait until the last frame finishes drawing
     key_poll();       //  snapshot of keys i think?
 
@@ -43,12 +62,12 @@ int main() {
     REG_BG0VOFS = SCROLL_DELTA_Y;
 
     if(game_state != SKI) {
+      in_ski_start_animation = STANDBY;
+
       // keybindings move the menu navigation system
       if (key_hit(KEY_UP)) {
-        bootReturn.player_icon->attr2 += 4;
         menu_nav_up();
       } else if (key_hit(KEY_DOWN)) {
-        bootReturn.player_icon->attr2 -= 4;
         menu_nav_down();
       } else if (key_hit(KEY_LEFT)) {
         menu_nav_left();
@@ -61,8 +80,35 @@ int main() {
       // mgbaprintf("Current menu node: (%d, %d)\n", get_current()->x, get_current()->y);
       bootReturn.flag_icon->attr0 = (bootReturn.flag_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(get_current()->y);
       bootReturn.flag_icon->attr1 = (bootReturn.flag_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(get_current()->x);
-      bootReturn.player_icon->attr1 = (bootReturn.player_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(0);
-      bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(0);
+      oam_copy(oam_mem, allObjects, 4);
+    } else if (game_state == SKI) {
+      if(in_ski_start_animation == STANDBY) {
+        in_ski_start_animation = BEGIN;
+      } 
+
+
+      // TODO: Delete.  Press select to go back to menu
+      if (key_hit(KEY_SELECT)) {
+        menu_select();
+      }
+
+      if(in_ski_start_animation == BEGIN) {
+        print("Beginning!");
+        // start player in the middle of the screen
+        bootReturn.player_icon->attr1 = (bootReturn.player_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(112);
+        bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(235);
+        in_ski_start_animation = PLAYING;
+      } else if(in_ski_start_animation == PLAYING) {
+        // move down slowly
+        int player_y_value = bootReturn.player_icon->attr0 & 0xFF;
+        if(player_y_value < 18 || player_y_value > 160) {
+           bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(player_y_value + 1);
+        } else {
+          //stop at some Y value, stop animation
+          in_ski_start_animation = DONE;
+        }
+      }
+
 
       oam_copy(oam_mem, allObjects, 4);
     }

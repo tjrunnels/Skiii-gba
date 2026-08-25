@@ -169,15 +169,18 @@ BootReturn load_boot_assets(void) {
 
   // PLAYER icon
   ///////////////////////////   
-  //the palatte and sprites are already loaded
+  // the palatte and sprites are already loaded
+  // the player image will need to cycle between 3 different images
+  const int PLAYER_IMAGE_BASE_INDEX = LOADED_TILE_COUNT + 8;
 
   //use position 3 of OAM
   OBJ_ATTR *player_icon =  &allObjects[3];
-  player_icon->attr0 = ATTR0_REG | ATTR0_4BPP | ATTR0_HIDE;
+  player_icon->attr0 = ATTR0_REG | ATTR0_4BPP | ATTR0_HIDE | ATTR0_Y(235);
   player_icon->attr1 = ATTR1_SIZE_16x16;
-  player_icon->attr2 = ATTR2_ID(LOADED_TILE_COUNT + 4) | ATTR2_PALBANK(2);
+  player_icon->attr2 = ATTR2_ID(PLAYER_IMAGE_BASE_INDEX) | ATTR2_PALBANK(2);
 
   to_return.player_icon = player_icon;
+  to_return.playerImageBaseIndex = PLAYER_IMAGE_BASE_INDEX;
 
   oam_copy(oam_mem, allObjects, 4);
 

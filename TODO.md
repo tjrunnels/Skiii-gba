@@ -2,7 +2,7 @@
 - [x] draw the flag icon for the menu nav location 
 - [x] add the "options" image, add the graphic to the main menu
 - [x] have the select action for options be to change the menu state
-- [ ] SKI state spawns player coming down from above the screen
+- [x] SKI state spawns player coming down from above the screen
 - [ ] player can move left to right
 - [ ] flags come up from the bottom of the screen, and despawn (and/or teleport) above the screen
 - [ ] flag Y position is compared against player Y position; all movement pauses on collision and state changes to RESULTS
