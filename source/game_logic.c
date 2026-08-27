@@ -17,10 +17,10 @@ void process_game_frame(BootReturn bootReturn) {
     //   see C:\Users\super\Documents\Development\Skiii\Assets\customassets\Scripts\movement.cs
     int player_x_value = bootReturn.player_icon->attr1 & 0xFF;
     
-    char player_x_str[16];
-    snprintf(player_x_str, sizeof(player_x_str), "%d", player_x_value);
+    // char player_x_str[16];
+    // snprintf(player_x_str, sizeof(player_x_str), "%d", player_x_value);
 
-    print(player_x_str);
+    // print(player_x_str);
 
 
     // if x = {lane 1} || x = {lane 2} || x = {lane 3}, set X velocity to 0 and straight sprite
@@ -32,7 +32,7 @@ void process_game_frame(BootReturn bootReturn) {
     }
 
     // if left is touched, set X velocity to negative, left sprite
-    if (key_hit(KEY_LEFT)) {
+    if (key_hit(KEY_LEFT) || key_hit(KEY_L)) {
       x_velocity = -1 * SPEED;
       
       // set the sprite id to base+4
@@ -40,7 +40,7 @@ void process_game_frame(BootReturn bootReturn) {
         
     } 
     // if right, set X velocity to negative, right sprite
-    else if (key_hit(KEY_RIGHT)) {
+    else if (key_hit(KEY_RIGHT) || key_hit(KEY_R)) {
       x_velocity = 1 * SPEED;
       
       // set the sprite id to base-4

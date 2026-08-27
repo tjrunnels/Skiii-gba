@@ -9,7 +9,7 @@
 @	+ regular map (in SBBs), not compressed, 32x32 
 @	Total size: 32 + 16672 + 2048 = 18752
 @
-@	Time-stamp: 2026-08-27, 11:29:11
+@	Time-stamp: 2026-08-27, 12:24:54
 @	Exported by Cearn's GBA Image Transmogrifier, v0.9.2
 @	( http://www.coranac.com/projects/#grit )
 @
@@ -761,7 +761,7 @@ snow_floor32Map:
 	.global snow_floor32Pal		@ 32 unsigned chars
 	.hidden snow_floor32Pal
 snow_floor32Pal:
-	.hword 0x6B5A,0x7FFF,0x77BD,0x7BDE,0x0000,0x0000,0x0000,0x0000
+	.hword 0x5294,0x7FFF,0x6B5A,0x739C,0x0000,0x0000,0x0000,0x0000
 	.hword 0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000
 
 @}}BLOCK(snow_floor32)

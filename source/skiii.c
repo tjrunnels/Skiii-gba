@@ -57,13 +57,15 @@ int main() {
     key_poll();       //  snapshot of keys i think?
 
     SCROLL_DELTA_Y += 1;
-    SCROLL_DELTA_X += key_tri_shoulder();
+    // SCROLL_DELTA_X += key_tri_shoulder();
 
     REG_BG0HOFS = SCROLL_DELTA_X;
     REG_BG0VOFS = SCROLL_DELTA_Y;
 
     if(game_state != SKI) {
       in_ski_start_animation = STANDBY;
+      bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(170);
+
 
       // keybindings move the menu navigation system
       if (key_hit(KEY_UP)) {
@@ -88,12 +90,15 @@ int main() {
       } 
 
       // TODO: Delete.  Press A to go back to menu
-      if (key_hit(KEY_A)) {
-        menu_select();
+      if (key_hit(KEY_SELECT)) {
+        set_game_state(MENU);
+        change_ui_state(MENU);
       }
 
       if(in_ski_start_animation == BEGIN) {
         print("Beginning!");
+        // face forward
+        bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex) | ATTR2_PALBANK(2);
         // start player in the middle of the screen
         bootReturn.player_icon->attr1 = (bootReturn.player_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(112);
         bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(235);

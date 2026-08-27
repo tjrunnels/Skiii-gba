@@ -4,14 +4,16 @@
 - [x] have the select action for options be to change the menu state
 - [x] SKI state spawns player coming down from above the screen
 - [x] player can move left to right
+- [x] update the snow background to be higher contrast so it's visible on original GBA
 - [ ] flags come up from the bottom of the screen, and despawn (and/or teleport) above the screen
 - [ ] flag Y position is compared against player Y position; all movement pauses on collision and state changes to RESULTS
 - [ ] RESULTS screen
+- [ ] score counter
 - [ ] Save highest score
 - [ ] add music
+- [ ] add sfx (10point, turn noise)
 - [ ] Credits screen?  If i get text working
 - [ ] figure out what to do with the options menu lol
 - [ ]  
-- [ ] update the snow background to be higher contrast so it's visible on original GBA
 - [ ] polish
 - [ ] go gold
