@@ -246,7 +246,7 @@ void enable_running_snow_background_0(void) {
   /*
    * Flip the BG1 on with the existing display settings.
    */
-  REG_DISPCNT = DCNT_BG1 | REG_DISPCNT;  
+  // REG_DISPCNT = DCNT_BG1 | REG_DISPCNT;  
 
   // Center Skiii logo on screen
   REG_BG1HOFS = -55;

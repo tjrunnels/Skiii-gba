@@ -3,12 +3,12 @@
 - [x] add the "options" image, add the graphic to the main menu
 - [x] have the select action for options be to change the menu state
 - [x] SKI state spawns player coming down from above the screen
-- [ ] player can move left to right
+- [x] player can move left to right
 - [ ] flags come up from the bottom of the screen, and despawn (and/or teleport) above the screen
 - [ ] flag Y position is compared against player Y position; all movement pauses on collision and state changes to RESULTS
 - [ ] RESULTS screen
 - [ ] Save highest score
-- [ ]  
+- [ ] add music
 - [ ] Credits screen?  If i get text working
 - [ ] figure out what to do with the options menu lol
 - [ ]  

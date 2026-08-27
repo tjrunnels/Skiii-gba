@@ -5,6 +5,7 @@
 #include "menu_navigation_manager.h"
 #include "mgba_log.h"
 #include <tonc.h>
+#include "game_logic.h"
 
 // GBA resolution: 240 x 160
 ProgramState game_state = MENU;
@@ -41,15 +42,15 @@ int main() {
 
   // main game loop
   while (1) {
-    if(game_state == MENU) {
-      print("state: menu");
-    } else if (game_state == OPTIONS) {
-      print("state: options");
-    } else if (game_state == SKI) {
-      print("state: Ski");
-    } else if (game_state == CREDITS) {
-      print("state: credits");
-    }
+    // if(game_state == MENU) {
+    //   print("state: menu");
+    // } else if (game_state == OPTIONS) {
+    //   print("state: options");
+    // } else if (game_state == SKI) {
+    //   print("state: Ski");
+    // } else if (game_state == CREDITS) {
+    //   print("state: credits");
+    // }
 
 
     VBlankIntrWait(); //  Wait until the last frame finishes drawing
@@ -86,9 +87,8 @@ int main() {
         in_ski_start_animation = BEGIN;
       } 
 
-
-      // TODO: Delete.  Press select to go back to menu
-      if (key_hit(KEY_SELECT)) {
+      // TODO: Delete.  Press A to go back to menu
+      if (key_hit(KEY_A)) {
         menu_select();
       }
 
@@ -107,6 +107,8 @@ int main() {
           //stop at some Y value, stop animation
           in_ski_start_animation = DONE;
         }
+      } else {
+        process_game_frame(bootReturn);
       }
 
 

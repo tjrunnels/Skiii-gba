@@ -1,5 +1,5 @@
-skiii.o: C:/Users/super/Documents/Development/Skiii-gba/source/skiii.c \
- C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h \
+game_logic.o: \
+ C:/Users/super/Documents/Development/Skiii-gba/source/game_logic.c \
  C:/devkitPro/libtonc/include/tonc.h \
  C:/devkitPro/libtonc/include/tonc_types.h \
  C:/devkitPro/libtonc/include/tonc_memmap.h \
@@ -15,13 +15,8 @@ skiii.o: C:/Users/super/Documents/Development/Skiii-gba/source/skiii.c \
  C:/devkitPro/libtonc/include/tonc_video.h \
  C:/devkitPro/libtonc/include/tonc_nocash.h \
  C:/devkitPro/libtonc/include/tonc_text.h \
- C:/Users/super/Documents/Development/Skiii-gba/source/skiii.h \
  C:/Users/super/Documents/Development/Skiii-gba/source/mgba_log.h \
- C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h \
- C:/Users/super/Documents/Development/Skiii-gba/source/ui_manager.h \
- C:/Users/super/Documents/Development/Skiii-gba/source/menu_navigation_manager.h \
- C:/Users/super/Documents/Development/Skiii-gba/source/game_logic.h
-C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h:
+ C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h
 C:/devkitPro/libtonc/include/tonc.h:
 C:/devkitPro/libtonc/include/tonc_types.h:
 C:/devkitPro/libtonc/include/tonc_memmap.h:
@@ -37,9 +32,5 @@ C:/devkitPro/libtonc/include/tonc_surface.h:
 C:/devkitPro/libtonc/include/tonc_video.h:
 C:/devkitPro/libtonc/include/tonc_nocash.h:
 C:/devkitPro/libtonc/include/tonc_text.h:
-C:/Users/super/Documents/Development/Skiii-gba/source/skiii.h:
 C:/Users/super/Documents/Development/Skiii-gba/source/mgba_log.h:
-C:/Users/super/Documents/Development/Skiii-gba/build/snow_floor.h:
-C:/Users/super/Documents/Development/Skiii-gba/source/ui_manager.h:
-C:/Users/super/Documents/Development/Skiii-gba/source/menu_navigation_manager.h:
-C:/Users/super/Documents/Development/Skiii-gba/source/game_logic.h:
+C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h:

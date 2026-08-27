@@ -20,6 +20,13 @@ static void change_state_to_ski(void) {
   set_game_state(SKI);
   change_ui_state(game_state);
 }
+static void turn_on_Skiii_logo(void) {
+  REG_DISPCNT = DCNT_BG1 | REG_DISPCNT; //turn on the index 9 bit
+}
+static void turn_off_Skiii_logo(void) {
+  // REG_DISPCNT = ~(DCNT_BG1 | ~REG_DISPCNT); //turn off the index 9 bit
+  REG_DISPCNT &= 0b1111110111111111; //turn off the index 9 bit
+}
 
 static void hide_all_objects(void){
   for (int i = 0; i < 128; i++) {
@@ -33,6 +40,7 @@ void change_ui_state(ProgramState state) {
     // TODO: Turn on the menu background layers that were loaded at boot.
     // unload everything else
     hide_all_objects();
+    turn_on_Skiii_logo();
 
     // unhide "Start" menu option
     (&allObjects[0])->attr0 &= ~(1 << 9); //the 9th bit of OAM is the difference between hidden (10) and regular (00)
@@ -50,6 +58,7 @@ void change_ui_state(ProgramState state) {
 
   } else if (state == OPTIONS) {
     hide_all_objects();
+    turn_off_Skiii_logo();
 
     // startup the menu navigation system
     static MenuNode main_menu_nodes[3] = {
@@ -66,7 +75,8 @@ void change_ui_state(ProgramState state) {
     // unload everything else
   } else if (state == SKI) {
     hide_all_objects();
-    
+    turn_off_Skiii_logo();
+
     //unhide the player icon
     (&allObjects[3])->attr0  &= ~(1 << 9);
 
