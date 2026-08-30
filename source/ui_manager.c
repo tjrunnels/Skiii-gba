@@ -80,6 +80,11 @@ void change_ui_state(ProgramState state) {
 
     //unhide the player icon
     (&allObjects[3])->attr0  &= ~(1 << 9);
+    
+    //unhide the moving flags
+    for(int i = 10; i < 20; i++) {
+      (&allObjects[i])->attr0  &= ~(1 << 9);
+    }
 
     // TODO: delete.  Debug: select to exit SKI mode
     static MenuNode ski_menu_nodes[3] = {
@@ -87,7 +92,7 @@ void change_ui_state(ProgramState state) {
       { 255, 255, NULL, NULL, NULL, NULL, change_state_to_menu },
     };
     menu_set_active(&ski_menu_nodes[0]);
-    oam_copy(oam_mem, allObjects, 4);
+    oam_copy(oam_mem, allObjects, 20);
 
   }
 }

@@ -111,13 +111,14 @@ int main() {
         } else {
           //stop at some Y value, stop animation
           in_ski_start_animation = DONE;
+          game_setup();
         }
       } else {
         process_game_frame(bootReturn);
       }
 
 
-      oam_copy(oam_mem, allObjects, 4);
+      oam_copy(oam_mem, allObjects, 20);
     }
   }
 
