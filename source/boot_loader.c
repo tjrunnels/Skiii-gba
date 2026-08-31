@@ -168,10 +168,9 @@ BootReturn load_boot_assets(void) {
   // left/right of 5 flag groups
   for(int i = 10; i < 20; i++) {
     OBJ_ATTR *flag_icon_i = &allObjects[i];
-    flag_icon_i->attr0 = ATTR0_4BPP | ATTR0_HIDE;
-    flag_icon_i->attr1 = ATTR1_SIZE_16x16;
-    flag_icon_i->attr2 = ATTR2_ID(LOADED_TILE_COUNT) | ATTR2_PALBANK(2);
-    // memcpy16(&allObjects[i], &allObjects[2], sizeof(OBJ_ATTR) / sizeof(u16));
+    flag_icon_i->attr0 = ATTR0_4BPP | ATTR0_HIDE | ATTR0_Y(255);
+    flag_icon_i->attr1 = ATTR1_SIZE_16x16 | ATTR1_X(255);
+    flag_icon_i->attr2 = ATTR2_ID(LOADED_TILE_COUNT) | ATTR2_PALBANK(2) | ATTR2_PRIO(3);
   }
 
   to_return.flag_icon = flag_icon;
@@ -186,7 +185,7 @@ BootReturn load_boot_assets(void) {
   OBJ_ATTR *player_icon =  &allObjects[3];
   player_icon->attr0 = ATTR0_4BPP | ATTR0_HIDE | ATTR0_Y(235);
   player_icon->attr1 = ATTR1_SIZE_16x16;
-  player_icon->attr2 = ATTR2_ID(PLAYER_IMAGE_BASE_INDEX) | ATTR2_PALBANK(2);
+  player_icon->attr2 = ATTR2_ID(PLAYER_IMAGE_BASE_INDEX) | ATTR2_PALBANK(2) | ATTR2_PRIO(0);
 
   to_return.player_icon = player_icon;
   to_return.playerImageBaseIndex = PLAYER_IMAGE_BASE_INDEX;
