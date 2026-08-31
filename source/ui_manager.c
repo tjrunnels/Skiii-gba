@@ -3,20 +3,24 @@
 #include "menu_navigation_manager.h"
 #include "boot_loader.h"
 #include "ui_manager.h"
+#include "save_to_gba.h"
 
 // static void printHi(void) {
 //   mgbaprintf("Hi\n");
 // }
 static void change_state_to_menu(void) {
+  tte_printf("#{es}");
   set_game_state(MENU);
   change_ui_state(game_state);
 }
 static void change_state_to_options(void) {
+  tte_printf("#{es}");
   set_game_state(OPTIONS);
   change_ui_state(game_state);
 }
 static void change_state_to_ski(void) {
   print("chang state 2 ski");
+  tte_printf("#{es}");
   set_game_state(SKI);
   change_ui_state(game_state);
 }
@@ -60,11 +64,17 @@ void change_ui_state(ProgramState state) {
   } else if (state == OPTIONS) {
     hide_all_objects();
     turn_off_Skiii_logo();
+    int hs = read_highscore();
 
-    // startup the menu navigation system
+    tte_printf("#{es;P:60,50}HIGH SCORE: %03d", hs);
+    tte_printf("#{P:31,115}CREATED BY: TOM RUNNELS", hs);
+    tte_printf("#{P:56,135}MUSIC BY: MELLUSI", hs);
+
+
+    // // startup the menu navigation system
     static MenuNode option_menu_nodes[3] = {
       // x, y, up, down, left, right, select
-      { 68, 100, NULL, &option_menu_nodes[1], NULL, NULL, change_state_to_menu },
+      { 255, 255, NULL, NULL, NULL, NULL, change_state_to_menu },
     };
     menu_set_active(&option_menu_nodes[0]);
 

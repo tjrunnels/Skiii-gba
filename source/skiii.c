@@ -6,6 +6,7 @@
 #include "mgba_log.h"
 #include <tonc.h>
 #include "game_logic.h"
+#include "save_to_gba.h"
 
 // GBA resolution: 240 x 160
 ProgramState game_state = MENU;
@@ -15,6 +16,7 @@ void set_game_state(ProgramState new_state) {
 
 int main() {
   // Load all assets that have a fixed memory home for the whole program.
+  initialize_save_file();
   BootReturn bootReturn = load_boot_assets();
   enable_running_snow_background_0();
 
@@ -41,7 +43,7 @@ int main() {
   short int SCROLL_DELTA_Y = 64;
 
   int game_score = 0;
-  int high_score = 0;
+  int high_score = read_highscore();
 
   // main game loop
   while (1) {
@@ -72,7 +74,6 @@ int main() {
 
 
       //TODO: Delet
-      tte_printf("#{es;P:0,0}HIGH SCORE: %04d", high_score);
 
 
       // keybindings move the menu navigation system
@@ -93,7 +94,7 @@ int main() {
       bootReturn.flag_icon->attr1 = (bootReturn.flag_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(get_current()->x);
       oam_copy(oam_mem, allObjects, 4);
     } else if (game_state == SKI) {
-      tte_printf("#{es;P:0,0}SCORE: %04d", game_score);
+      tte_printf("#{es;P:203,8}%03d", game_score);
 
       if(in_ski_start_animation == STANDBY) {
         in_ski_start_animation = BEGIN;
@@ -130,7 +131,10 @@ int main() {
           change_ui_state(MENU);
         } else if (res == SCORED_POINT) {
           game_score++;
-          if(game_score > high_score) high_score = game_score;
+          if(game_score > high_score) {
+            high_score = game_score;
+            write_highscore(high_score);
+          }
         }
       }
 

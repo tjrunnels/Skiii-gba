@@ -14,6 +14,7 @@
  * Background Palette (pal_bg_mem, 0x05000000):
  *   Bank 0 (colors 0-15)   : snow_floor
  *   Bank 1 (colors 16-31)  : skiii_logo
+ *   Bank 2 (colors 32-47)  : TTE text palette
  *
  * Object Palette (pal_obj_mem, 0x05000200):
  *   Bank 0 (colors 0-15)   : start icon
@@ -171,14 +172,16 @@ void enable_running_snow_background_0(void) {
   REG_BG1VOFS = 220;
 
   // BG2: Tonc Text Engine (TTE) sharing CBB 2 (font starting at tile index 100) and SBB 26 for map
+  // Uses dedicated Background Palette Bank 2 so it doesn't overwrite the logo's palette (Bank 1)
+  // Primary ink: Dominant blue (skiii_logoPal[3]), Secondary/shadow: Alpine green (RGB15(4, 28, 10))
   tte_init_se(
-      2,                      // BG layer 2
-      BG_CBB(2) | BG_SBB(26), // CBB 2, SBB 26
-      SE_ID(100),             // Base screen entry: tile ID 100, palette bank 0
-      0xF000,                 // Ink color 15, transparent background
-      100,                    // Tile offset in CBB 2: load font starting at tile 100
-      NULL,                   // Default sys8 font
-      NULL                    // Default renderer
+      2,                                                  // BG layer 2
+      BG_CBB(2) | BG_SBB(26),                             // CBB 2, SBB 26
+      SE_ID(100) | SE_PALBANK(1),                         // Base screen entry: tile ID 100, dedicated palette bank 2
+      skiii_logoPal[11] << 16 | skiii_logoPal[3],         // [Shadow/alt color] <<16 | [Ink color]
+      100,                                                // Tile offset in CBB 2: load font starting at tile 100
+      NULL,                                               // Default sys8 font
+      NULL                                                // Default renderer
   );
   REG_BG2CNT |= BG_PRIO(0);
   tte_init_con(); // Connects stdio/iprintf/tte_printf to TTE

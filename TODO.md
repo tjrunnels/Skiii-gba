@@ -8,12 +8,12 @@
 - [x] flags come up from the bottom of the screen, and despawn (and/or teleport) above the screen
 - [x] flag Y position is compared against player Y position; all movement pauses on collision and state changes to RESULTS
 - [ ] RESULTS screen
-- [ ] score counter
-- [ ] Save highest score
+- [x] score counter
+- [x] Save highest score
 - [ ] add music
 - [ ] add sfx (10point, turn noise)
-- [ ] Credits screen?  If i get text working
-- [ ] figure out what to do with the options menu lol
+- [x] Credits screen?  If i get text working
+- [x] figure out what to do with the options menu lol
 - [ ] input buffer?
 - [ ]  
 - [ ] polish
