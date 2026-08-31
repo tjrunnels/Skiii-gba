@@ -40,6 +40,9 @@ int main() {
   short int SCROLL_DELTA_X = 192/8;
   short int SCROLL_DELTA_Y = 64;
 
+  int game_score = 0;
+  int high_score = 0;
+
   // main game loop
   while (1) {
     // if(game_state == MENU) {
@@ -65,6 +68,11 @@ int main() {
     if(game_state != SKI) {
       in_ski_start_animation = STANDBY;
       bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(170);
+      game_score = 0;
+
+
+      //TODO: Delet
+      tte_printf("#{es;P:0,0}HIGH SCORE: %04d", high_score);
 
 
       // keybindings move the menu navigation system
@@ -85,6 +93,8 @@ int main() {
       bootReturn.flag_icon->attr1 = (bootReturn.flag_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(get_current()->x);
       oam_copy(oam_mem, allObjects, 4);
     } else if (game_state == SKI) {
+      tte_printf("#{es;P:0,0}SCORE: %04d", game_score);
+
       if(in_ski_start_animation == STANDBY) {
         in_ski_start_animation = BEGIN;
       } 
@@ -114,7 +124,14 @@ int main() {
           game_setup();
         }
       } else {
-        process_game_frame(bootReturn);
+        FrameResult res = process_game_frame(bootReturn);
+        if(res == GAME_OVER) {
+          set_game_state(MENU);
+          change_ui_state(MENU);
+        } else if (res == SCORED_POINT) {
+          game_score++;
+          if(game_score > high_score) high_score = game_score;
+        }
       }
 
 

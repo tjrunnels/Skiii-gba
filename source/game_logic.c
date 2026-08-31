@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "game_logic.h"
 
 
 static void print(char message[20]) {
@@ -68,7 +69,8 @@ void game_setup(void) {
 
 
 // only runs NOT during opening animation
-void process_game_frame(BootReturn bootReturn) {
+FrameResult process_game_frame(BootReturn bootReturn) {
+    FrameResult to_return = NOTHING;
 
     //   see C:\Users\super\Documents\Development\Skiii\Assets\customassets\Scripts\movement.cs
     int player_x_value = bootReturn.player_icon->attr1 & 0xFF;
@@ -134,7 +136,7 @@ void process_game_frame(BootReturn bootReturn) {
         next_flag_left->attr1 = (next_flag_left->attr1 & ~ATTR1_X_MASK) | ATTR1_X(2);  //2
         next_flag_right->attr1 = (next_flag_right->attr1 & ~ATTR1_X_MASK) | ATTR1_X(62); //62
       } else if(lane == 1) {
-        next_flag_left->attr1 = (next_flag_left->attr1 & ~ATTR1_X_MASK) | ATTR1_X(72); //72
+        next_flag_left->attr1 = (next_flag_left->attr1 & ~ATTR1_X_MASK) | ATTR1_X(82); //82
         next_flag_right->attr1 = (next_flag_right->attr1 & ~ATTR1_X_MASK) | ATTR1_X(142); //142
       } else if(lane == 2) {
         next_flag_left->attr1 = (next_flag_left->attr1 & ~ATTR1_X_MASK) | ATTR1_X(162); //162
@@ -152,11 +154,30 @@ void process_game_frame(BootReturn bootReturn) {
       frames_between_flags = frames_between_flags > 1 ? frames_between_flags - 1 : frames_between_flags;
     }
 
-    // apply y velocity to all flags that are on the screen
+    // each flag group
     for (int i = 0; i < 5; i++) {
       OBJ_ATTR *flagL = &allObjects[(i*2) + 10];
       int flagL_y_value = flagL->attr0 & ATTR0_Y_MASK;
 
+      // 1. Collision logic
+      const int player_hitbox_y = 18 + 16; //bottom edge of player
+      const int flag_hitbox_y = flagL_y_value + 16; //bottom edge of flag
+      
+      // this should only happen for one flag group on any given frame
+      if(flag_hitbox_y == player_hitbox_y) { //TODO: make this a range?
+        const int flagL_x_value = flagL->attr1 & ATTR1_X_MASK;
+
+        //TODO: maybe give a buffer? 
+        // if player's x is within the two flags' x
+        if(player_x_value > flagL_x_value && player_x_value < flagL_x_value + 60) {
+          to_return = SCORED_POINT;
+        } else {
+          to_return = GAME_OVER;
+        }
+      }
+
+
+      // 2. else, apply y velocity to all flags that are on the screen
       // two valid zones: less that 160 (on screen) and 240 thru 255 (off the edge of the top of the screen)
       if(!(flagL_y_value > 161 && flagL_y_value < 230)) {
         const int new_y_value = (flagL_y_value - 1) & 0xFF; //bitwise mask will cause it to warp back around to 255
@@ -173,4 +194,5 @@ void process_game_frame(BootReturn bootReturn) {
       }
     }    
     oam_copy(oam_mem, allObjects, 20);
+    return to_return;
 };

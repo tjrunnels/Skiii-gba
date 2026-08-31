@@ -6,7 +6,7 @@
 - [x] player can move left to right
 - [x] update the snow background to be higher contrast so it's visible on original GBA
 - [x] flags come up from the bottom of the screen, and despawn (and/or teleport) above the screen
-- [ ] flag Y position is compared against player Y position; all movement pauses on collision and state changes to RESULTS
+- [x] flag Y position is compared against player Y position; all movement pauses on collision and state changes to RESULTS
 - [ ] RESULTS screen
 - [ ] score counter
 - [ ] Save highest score
