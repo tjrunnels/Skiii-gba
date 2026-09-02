@@ -7,6 +7,7 @@
 #include <tonc.h>
 #include "game_logic.h"
 #include "save_to_gba.h"
+#include "sound.h"
 
 // GBA resolution: 240 x 160
 ProgramState game_state = MENU;
@@ -45,8 +46,12 @@ int main() {
   int game_score = 0;
   int high_score = read_highscore();
 
+  init_sound();
+   
+
   // main game loop
   while (1) {
+    loop_music_frame();
     // if(game_state == MENU) {
     //   print("state: menu");
     // } else if (game_state == OPTIONS) {
