@@ -51,6 +51,7 @@ int main() {
 
   // main game loop
   while (1) {
+    VBlankIntrWait();
     loop_music_frame();
     // if(game_state == MENU) {
     //   print("state: menu");
@@ -63,7 +64,6 @@ int main() {
     // }
 
 
-    VBlankIntrWait(); //  Wait until the last frame finishes drawing
     key_poll();       //  snapshot of keys i think?
 
     SCROLL_DELTA_Y += 1;
