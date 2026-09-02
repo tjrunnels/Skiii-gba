@@ -104,7 +104,7 @@ static void play_sqr(int ch, u8 pitch, u8 vol, u16 duty, u8 env_time)
 
 static void play_bass(u8 pitch)
 {
-	play_sqr(2, pitch, 12, SSQR_DUTY1_8, 2);
+	play_sqr(2, pitch, 15, SSQR_DUTY1_8, 2);
 }
 
 static void play_melody(u8 pitch)
@@ -141,8 +141,9 @@ static void play_wave(u8 pitch)
 static void play_noise(u8 kind)
 {
 	if (kind == ACC) {
-		REG_SND4CNT = SSQR_ENV_BUILD(1, 0, 1);
-		REG_SND4FREQ = SFREQ_RESET | (1 << 4) | 1;
+		/* 7-bit LFSR, lower clock, decay tail — GB snare, not a hat click. */
+		REG_SND4CNT = SSQR_ENV_BUILD(5, 0, 3);
+		REG_SND4FREQ = SFREQ_RESET | (5 << 4) | (1 << 3) | 3;
 	}
 }
 
