@@ -32,6 +32,7 @@
 #define E6  PK(NOTE_E,   2)
 #define F6  PK(NOTE_F,   2)
 #define G6  PK(NOTE_G,   2)
+#define Ab6 PK(NOTE_GIS, 2)
 
 #define ACC 2
 
@@ -223,19 +224,19 @@ static const Ev wave_ev[] = {
 
 static const Ev mel_ev[] = {
 	/* 1-5 */ {REST, 80},
-	/*  6 */ {G5, 3}, {E6, 2}, {REST, 1}, {E6, 6}, {G5, 4},
-	/*  7 */ {E6, 11}, {REST, 1}, {E6, 2}, {F6, 2},
-	/*  8 */ {G6, 2}, {E6, 4}, {C6, 5}, {REST, 1}, {Bb5, 4},
-	/*  9 */ {C6, 16},
-	/* 10 */ {C6, 4}, {REST, 12},
+	/*  6 */ {G5, 2}, {E6, 3}, {REST, 1}, {E6, 6}, {G5, 4},
+	/*  7 */ {E6, 8}, {REST, 4}, {E6, 2}, {F6, 2},
+	/*  8 */ {G6, 2}, {E6, 4}, {C6, 6}, {Bb5, 4},
+	/*  9 */ {C6, 12}, {REST, 4},
+	/* 10 */ {REST, 4}, {REST, 12},
 	/* 11 */ {REST, 16},
-	/* 12 */ {G5, 2}, {E6, 2}, {C6, 2}, {E6, 6}, {G5, 4},
-	/* 13 */ {E6, 10}, {REST, 2}, {E6, 2}, {F6, 2},
-	/* 14 */ {E6, 6}, {C6, 5}, {Bb5, 3}, {G5, 2},
-	/* 15 */ {G5, 1}, {C6, 1}, {G5, 3}, {C6, 11},
+	/* 12 */ {G5, 2}, {E6, 3}, {REST, 1}, {E6, 6}, {G5, 4},
+	/* 13 */ {E6, 8}, {REST, 2}, {E6, 2}, {F6, 4},
+	/* 14 */ {G6, 2}, {E6, 4}, {C6, 6}, {Bb5, 4},
+	/* 15 */ {C6, 12}, {REST, 4},
 	/* 16 */ {REST, 16},
 	/* 17 */ {REST, 16},
-	/* 18 */ {G5, 16},
+	/* 18 */ {G5, 8}, {B5, 4}, {D6, 4},
 	/* 19 */ {G5, 4}, {B5, 4}, {D6, 8},
 	/* 20 */ {D6, 8}, {G5, 8},
 	/* 21 */ {G5, 8}, {C6, 8},
@@ -299,12 +300,7 @@ static void tick_sixteenth(void)
 
 static void tick_vibrato(void)
 {
-	static const s8 vib[8] = {0, 1, 2, 1, 0, -1, -2, -1};
-
-	if (!melody_on)
-		return;
-	melody_vib++;
-	REG_SND1FREQ = (u16)(melody_rate + vib[(melody_vib >> 2) & 7]);
+	(void)melody_on;
 }
 
 void init_sound(void)
