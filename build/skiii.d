@@ -22,7 +22,11 @@ skiii.o: C:/Users/super/Documents/Development/Skiii-gba/source/skiii.c \
  C:/Users/super/Documents/Development/Skiii-gba/source/menu_navigation_manager.h \
  C:/Users/super/Documents/Development/Skiii-gba/source/game_logic.h \
  C:/Users/super/Documents/Development/Skiii-gba/source/save_to_gba.h \
- C:/Users/super/Documents/Development/Skiii-gba/source/sound.h
+ C:/Users/super/Documents/Development/Skiii-gba/source/music.h \
+ C:/devkitPro/libgba/include/maxmod.h \
+ C:/devkitPro/libgba/include/mm_types.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/soundbank.h \
+ C:/Users/super/Documents/Development/Skiii-gba/build/soundbank_bin.h
 C:/Users/super/Documents/Development/Skiii-gba/source/boot_loader.h:
 C:/devkitPro/libtonc/include/tonc.h:
 C:/devkitPro/libtonc/include/tonc_types.h:
@@ -46,4 +50,8 @@ C:/Users/super/Documents/Development/Skiii-gba/source/ui_manager.h:
 C:/Users/super/Documents/Development/Skiii-gba/source/menu_navigation_manager.h:
 C:/Users/super/Documents/Development/Skiii-gba/source/game_logic.h:
 C:/Users/super/Documents/Development/Skiii-gba/source/save_to_gba.h:
-C:/Users/super/Documents/Development/Skiii-gba/source/sound.h:
+C:/Users/super/Documents/Development/Skiii-gba/source/music.h:
+C:/devkitPro/libgba/include/maxmod.h:
+C:/devkitPro/libgba/include/mm_types.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/soundbank.h:
+C:/Users/super/Documents/Development/Skiii-gba/build/soundbank_bin.h:

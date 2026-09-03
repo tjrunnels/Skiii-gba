@@ -1,5 +1,5 @@
-sound.o: C:/Users/super/Documents/Development/Skiii-gba/source/sound.c \
- C:/Users/super/Documents/Development/Skiii-gba/source/sound.h \
+music.o: C:/Users/super/Documents/Development/Skiii-gba/source/music.c \
+ C:/Users/super/Documents/Development/Skiii-gba/source/music.h \
  C:/devkitPro/libtonc/include/tonc.h \
  C:/devkitPro/libtonc/include/tonc_types.h \
  C:/devkitPro/libtonc/include/tonc_memmap.h \
@@ -15,7 +15,7 @@ sound.o: C:/Users/super/Documents/Development/Skiii-gba/source/sound.c \
  C:/devkitPro/libtonc/include/tonc_video.h \
  C:/devkitPro/libtonc/include/tonc_nocash.h \
  C:/devkitPro/libtonc/include/tonc_text.h
-C:/Users/super/Documents/Development/Skiii-gba/source/sound.h:
+C:/Users/super/Documents/Development/Skiii-gba/source/music.h:
 C:/devkitPro/libtonc/include/tonc.h:
 C:/devkitPro/libtonc/include/tonc_types.h:
 C:/devkitPro/libtonc/include/tonc_memmap.h:

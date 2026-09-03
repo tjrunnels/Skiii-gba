@@ -1,4 +1,4 @@
-#include "sound.h"
+#include "music.h"
 #include <tonc.h>
 
 /*
@@ -103,9 +103,17 @@ static void play_sqr(int ch, u8 pitch, u8 vol, u16 duty, u8 env_time)
 	}
 }
 
+
+// Per-channel volume:
+// - play_bass(): play_sqr(2, pitch, 15, ...) — range 0-15, 0 = silent / 15 = max. 
+// - play_melody(): SSQR_ENV_BUILD(12, 0, 0) — range 0-15, 0 = silent / 15 = max. 
+// - play_wave(): REG_SND3CNT = SWAV_VOL50 — range is 4 steps only: MUTE / 100% / 50% / 25%. 
+// - play_noise(): SSQR_ENV_BUILD(5, 0, 3) — range 0-15, 0 = silent / 15 = max. 
+
+
 static void play_bass(u8 pitch)
 {
-	play_sqr(2, pitch, 15, SSQR_DUTY1_8, 2);
+	play_sqr(2, pitch, 13, SSQR_DUTY1_8, 2);
 }
 
 static void play_melody(u8 pitch)
@@ -121,7 +129,7 @@ static void play_melody(u8 pitch)
 	melody_rate = SND_RATE(note, oct);
 	melody_on = 1;
 	melody_vib = 0;
-	REG_SND1CNT = SSQR_ENV_BUILD(12, 0, 0) | SSQR_DUTY1_4;
+	REG_SND1CNT = SSQR_ENV_BUILD(9, 0, 0) | SSQR_DUTY1_4;
 	REG_SND1FREQ = SFREQ_RESET | melody_rate;
 }
 
@@ -143,7 +151,7 @@ static void play_noise(u8 kind)
 {
 	if (kind == ACC) {
 		/* 7-bit LFSR, lower clock, decay tail — GB snare, not a hat click. */
-		REG_SND4CNT = SSQR_ENV_BUILD(5, 0, 3);
+		REG_SND4CNT = SSQR_ENV_BUILD(4, 0, 3);
 		REG_SND4FREQ = SFREQ_RESET | (5 << 4) | (1 << 3) | 3;
 	}
 }
@@ -303,12 +311,17 @@ static void tick_vibrato(void)
 	(void)melody_on;
 }
 
-void init_sound(void)
+void init_music(void)
 {
-	REG_SNDSTAT = SSTAT_ENABLE;
-	REG_SNDDMGCNT = SDMG_BUILD_LR(
-		SDMG_SQR1 | SDMG_SQR2 | SDMG_WAVE | SDMG_NOISE, 7);
-	REG_SNDDSCNT = SDS_DMG100;
+	REG_SNDSTAT |= SSTAT_ENABLE;
+	// NOTE: don't overwrite SOUNDCNT - MaxMod owns DirectSound A/B bits.
+	// Only enable PSG channels (SOUNDCNT_L) and set DMG ratio to 100%
+	// (SOUNDCNT_H bits 0-1), preserving MaxMod's DirectSound setup.
+
+	// Master music volume is that last digit
+	REG_SNDDMGCNT |= SDMG_BUILD_LR(
+		SDMG_SQR1 | SDMG_SQR2 | SDMG_WAVE | SDMG_NOISE, 2);
+	REG_SNDDSCNT = (REG_SNDDSCNT & ~0x0003) | SDS_DMG100;
 
 	REG_SND1SWEEP = SSW_OFF;
 	REG_SND1CNT = 0;

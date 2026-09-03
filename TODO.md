@@ -10,11 +10,12 @@
 - [ ] RESULTS screen
 - [x] score counter
 - [x] Save highest score
-- [ ] add music
-- [ ] add sfx (10point, turn noise)
+- [x] add music
+- [x] add sfx (10point, turn noise)
 - [x] Credits screen?  If i get text working
 - [x] figure out what to do with the options menu lol
 - [ ] input buffer?
+- [ ] add music volume to options menu
 - [ ]  
 - [ ] polish
 - [ ] go gold

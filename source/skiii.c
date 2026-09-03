@@ -7,7 +7,11 @@
 #include <tonc.h>
 #include "game_logic.h"
 #include "save_to_gba.h"
-#include "sound.h"
+#include "music.h"
+
+#include <maxmod.h>
+#include "soundbank.h"
+#include "soundbank_bin.h"
 
 // GBA resolution: 240 x 160
 ProgramState game_state = MENU;
@@ -28,9 +32,15 @@ int main() {
 
   
   // Init interrupts and VBlank irq.
+  // NOTE: mmVBlank MUST be linked to VBlank IRQ - it feeds MaxMod's
+  // DirectSound mixer every frame. With NULL here, mmEffect() queues
+  // but nothing ever outputs, so you get silence.
   irq_init(NULL);
-  irq_add(II_VBLANK, NULL);
+  irq_add(II_VBLANK, mmVBlank);
 
+  // init sfx engine (sets up sound regs itself, don't overwrite after)
+  mmInitDefault((mm_addr)soundbank_bin, 8);
+  mmSetEffectsVolume(1024); // max SFX volume (0-1024 = 0%-100%)
 
   if (dlog_open()) {
     mgbaprintf("mGBA logging ready\n");
@@ -46,12 +56,13 @@ int main() {
   int game_score = 0;
   int high_score = read_highscore();
 
-  init_sound();
+  init_music();
    
 
   // main game loop
   while (1) {
     VBlankIntrWait();
+    mmFrame();
     loop_music_frame();
     // if(game_state == MENU) {
     //   print("state: menu");
@@ -136,6 +147,11 @@ int main() {
           change_ui_state(MENU);
         } else if (res == SCORED_POINT) {
           game_score++;
+          if(game_score % 10 == 0) {
+            mmEffect(SFX_XPOINTS);
+          } else {
+            mmEffect(SFX_POINT);
+          }
           if(game_score > high_score) {
             high_score = game_score;
             write_highscore(high_score);

@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include "game_logic.h"
+#include <maxmod.h>
+#include "soundbank.h"
 
 
 static void print(char message[20]) {
@@ -91,6 +93,7 @@ FrameResult process_game_frame(BootReturn bootReturn) {
 
     // if left is touched, set X velocity to negative, left sprite
     if (key_hit(KEY_LEFT) || key_hit(KEY_L)) {
+      mmEffect(SFX_TURN);
       x_velocity = -1 * SPEED;
       
       // set the sprite id to base+4
@@ -99,6 +102,7 @@ FrameResult process_game_frame(BootReturn bootReturn) {
     } 
     // if right, set X velocity to negative, right sprite
     else if (key_hit(KEY_RIGHT) || key_hit(KEY_R)) {
+      mmEffect(SFX_TURN);
       x_velocity = 1 * SPEED;
       
       // set the sprite id to base-4
