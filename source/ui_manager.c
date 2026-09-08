@@ -32,11 +32,26 @@ static void turn_off_Skiii_logo(void) {
   REG_DISPCNT &= 0b1111110111111111; //turn off the index 9 bit
 }
 
+static void turn_on_result_backdrop(void) {
+  REG_DISPCNT = DCNT_BG3 | REG_DISPCNT; //turn on the index 9 bit
+}
+static void turn_off_result_backdrop(void) {
+  REG_DISPCNT = ~(DCNT_BG3 | ~REG_DISPCNT); //turn off the index 9 bit
+  REG_BG3VOFS = 0; // set location offscreen so it doesn't glitch later
+}
+
 static void hide_all_objects(void){
+  // hide all sprites
   for (int i = 0; i < 60; i++) {
     (&allObjects[i])->attr0 |= 1 << 9; // sets the hide bit on all
   }
   oam_copy(oam_mem, allObjects, 60);
+
+  // hide results backdrop
+  turn_off_result_backdrop();
+
+  // reset text
+  tte_printf("#{es}");
 }
 
 void change_ui_state(ProgramState state) {
@@ -104,5 +119,7 @@ void change_ui_state(ProgramState state) {
     menu_set_active(&ski_menu_nodes[0]);
     oam_copy(oam_mem, allObjects, 20);
 
+  } else if (state == RESULTS) {
+    turn_on_result_backdrop(); 
   }
 }

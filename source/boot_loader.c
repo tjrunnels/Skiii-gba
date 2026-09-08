@@ -6,6 +6,7 @@
 #include "options.h"
 #include <tonc.h>
 #include "square_objects.h"
+#include "results_backdrop.h"
 
 /*
  * Boot Asset Memory Map
@@ -40,36 +41,12 @@
 
 OBJ_ATTR allObjects[128];
 
-BootReturn load_boot_assets(void) {
+BootReturn load_sprites(void) {
 
   BootReturn to_return;
 
   // Init all of OAm objects
   oam_init(allObjects, 128);
-
-  // SNOW_FLOOR
-  /////////////////////////// 
-  // Load snow_floor palette into background palette memory.
-  memcpy16(pal_bg_mem, snow_floor32Pal, snow_floor32PalLen / sizeof(u16));
-
-  // Load snow_floor tiles into background charblock 0.
-  memcpy32(&tile_mem[0][0], snow_floor32Tiles, snow_floor32TilesLen / sizeof(u32));
-
-  // Load snow_floor map into screenblock 30 and 31 (since it's 64x32)
-  memcpy32(&se_mem[30][0], snow_floor32Map, snow_floor32MapLen / sizeof(u32));
-
-
-  // SKIII_LOGO
-  /////////////////////////// 
-  // Load skiii_logo palette into its planned background palette bank.
-  memcpy16(pal_bg_mem + 16, skiii_logoPal, skiii_logoPalLen / sizeof(u16));
-
-  // Load skiii_logo tiles into background charblock 2.
-  memcpy32(&tile_mem[2][0], skiii_logoTiles, skiii_logoTilesLen / sizeof(u32));
-
-  // Load skiii_logo map into screenblock 0.
-  memcpy32(&se_mem[24][0], skiii_logoMap, skiii_logoMapLen / sizeof(u32));
-
 
   int LOADED_PAL_COUNT = 0;
   int LOADED_TILE_COUNT = 0;
@@ -152,7 +129,7 @@ BootReturn load_boot_assets(void) {
   OBJ_ATTR *player_icon =  &allObjects[3];
   player_icon->attr0 = ATTR0_4BPP | ATTR0_HIDE | ATTR0_Y(235);
   player_icon->attr1 = ATTR1_SIZE_16x16;
-  player_icon->attr2 = ATTR2_ID(PLAYER_IMAGE_BASE_INDEX) | ATTR2_PALBANK(2) | ATTR2_PRIO(0);
+  player_icon->attr2 = ATTR2_ID(PLAYER_IMAGE_BASE_INDEX) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
 
   to_return.player_icon = player_icon;
   to_return.playerImageBaseIndex = PLAYER_IMAGE_BASE_INDEX;
@@ -162,7 +139,48 @@ BootReturn load_boot_assets(void) {
   return to_return;
 }
 
-void enable_running_snow_background_0(void) {
+void load_backgrounds(void) {
+
+  // SNOW_FLOOR
+  /////////////////////////// 
+  // Load snow_floor palette into background palette memory.
+  memcpy16(pal_bg_mem, snow_floor32Pal, snow_floor32PalLen / sizeof(u16));
+
+  // Load snow_floor tiles into background charblock 0.
+  memcpy32(&tile_mem[0][0], snow_floor32Tiles, snow_floor32TilesLen / sizeof(u32));
+
+  // Load snow_floor map into screenblock 30 and 31 (since it's 64x32)
+  memcpy32(&se_mem[30][0], snow_floor32Map, snow_floor32MapLen / sizeof(u32));
+
+
+  // SKIII_LOGO
+  /////////////////////////// 
+  // Load skiii_logo palette into its planned background palette bank.
+  memcpy16(pal_bg_mem + 16, skiii_logoPal, skiii_logoPalLen / sizeof(u16));
+
+  // Load skiii_logo tiles into background charblock 2.
+  memcpy32(&tile_mem[2][0], skiii_logoTiles, skiii_logoTilesLen / sizeof(u32));
+
+  // Load skiii_logo map into screenblock 24.
+  memcpy32(&se_mem[24][0], skiii_logoMap, skiii_logoMapLen / sizeof(u32));
+
+
+  
+  // RESULTS_BACKDROP
+  /////////////////////////// 
+  // Load palette
+  memcpy16(pal_bg_mem + 48, results_backdropPal, results_backdropPalLen / sizeof(u16));
+  // Load tiles
+  memcpy32(&tile_mem[2][256], results_backdropTiles, results_backdropTilesLen / sizeof(u32));
+  
+  // Load map into screenblock 27, but patch rom IDS 0-64 -> VRAM ids 256-320. (since we're running out of memory)
+  for (int i = 0; i < 2048; i++) {
+    se_mem[27][i] = (results_backdropMap[i] & (SE_HFLIP|SE_VFLIP)) | SE_ID(256 + (results_backdropMap[i] & SE_ID_MASK)) | SE_PALBANK(3);
+  }
+
+
+
+
   // BG0: Scrolling snow floor (rearmost)
   REG_BG0CNT = BG_PRIO(3) | BG_CBB(0) | BG_SBB(30) | BG_4BPP | BG_REG_32x32;
 
@@ -171,6 +189,7 @@ void enable_running_snow_background_0(void) {
   REG_BG1HOFS = 200;
   REG_BG1VOFS = 220;
 
+  // TODO: cleanup
   // BG2: Tonc Text Engine (TTE) sharing CBB 2 (font starting at tile index 100) and SBB 26 for map
   // Uses dedicated Background Palette Bank 2 so it doesn't overwrite the logo's palette (Bank 1)
   // Primary ink: Dominant blue (skiii_logoPal[3]), Secondary/shadow: Alpine green (RGB15(4, 28, 10))
@@ -186,6 +205,13 @@ void enable_running_snow_background_0(void) {
   REG_BG2CNT |= BG_PRIO(0);
   tte_init_con(); // Connects stdio/iprintf/tte_printf to TTE
 
+  // BG3: Results overlay
+  REG_BG3CNT = BG_PRIO(0) | BG_CBB(2) | BG_SBB(27) | BG_4BPP | BG_REG_32x64;
+  REG_BG3HOFS = 0;
+
   // Enable Mode 0 with BG0, BG2 (text), and 1D mapped objects
   REG_DISPCNT = DCNT_MODE0 | DCNT_BG0 | DCNT_BG2 | DCNT_OBJ | DCNT_OBJ_1D;
+
+
+
 }

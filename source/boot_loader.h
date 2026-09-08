@@ -11,8 +11,8 @@ typedef struct {
     int playerImageBaseIndex;
 } BootReturn;
 
-BootReturn load_boot_assets(void);
-void enable_running_snow_background_0(void);
+BootReturn load_sprites(void);
+void load_backgrounds(void);
 
 extern OBJ_ATTR allObjects[128];
 

@@ -23,8 +23,12 @@ static int frame_countdown_to_next_flag = 60;
 static int frames_between_flags = 60;
 
 
-void game_setup(void) {
-  srand(time(NULL));
+
+void game_setup(int frame_count) {
+  next_flag_group = 0;
+  frame_countdown_to_next_flag = 60;
+  frames_between_flags = 60;
+  srand(frame_count ^ REG_VCOUNT); // frame count mixed with current line being drawn... seems pretty random to me
   
   //spawn initial 5 flags
   for(int i = 0; i < 5; i++) {
@@ -88,7 +92,7 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       x_velocity = 0;
 
       // set the sprite id to base (facing straight)
-      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex) | ATTR2_PALBANK(2);
+      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
     }
 
     // if left is touched, set X velocity to negative, left sprite
@@ -97,7 +101,7 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       x_velocity = -1 * SPEED;
       
       // set the sprite id to base+4
-      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex + 4) | ATTR2_PALBANK(2);
+      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex + 4) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
         
     } 
     // if right, set X velocity to negative, right sprite
@@ -106,7 +110,7 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       x_velocity = 1 * SPEED;
       
       // set the sprite id to base-4
-      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex - 4) | ATTR2_PALBANK(2);
+      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex - 4) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
     }
 
     // if x is {at the edges}, teleport & keep velocity

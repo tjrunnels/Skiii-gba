@@ -1,6 +1,9 @@
 #include "music.h"
 #include <tonc.h>
 
+
+// DISCLAIMER: This file was written entirely by LLMs
+
 /*
  * Skiitheme as GBA PSG, transcribed from the WAV.
  * 159 BPM (file tempo tag). Square 1 = melody, square 2 = bass,
