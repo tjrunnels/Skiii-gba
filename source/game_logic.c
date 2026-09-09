@@ -22,7 +22,8 @@ static int next_flag_group = 0;
 static int frame_countdown_to_next_flag = 60;
 static int frames_between_flags = 60;
 
-
+typedef enum { LEFT, RIGHT, NONE } InputBuffer;
+InputBuffer input_buffer = NONE;
 
 void game_setup(int frame_count) {
   next_flag_group = 0;
@@ -95,22 +96,47 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
     }
 
-    // if left is touched, set X velocity to negative, left sprite
-    if (key_hit(KEY_LEFT) || key_hit(KEY_L)) {
-      mmEffect(SFX_TURN);
-      x_velocity = -1 * SPEED;
-      
-      // set the sprite id to base+4
-      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex + 4) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
+    const int BUFFER_SIZE = 17;
+
+    if (key_hit(KEY_LEFT) || key_hit(KEY_L) || (x_velocity == 0 && input_buffer == LEFT)) {
+      // reset input buffer 
+      input_buffer = NONE;
+
+      // left is touched while headed left and within a few pixels of the lane, buffer the input
+      if(x_velocity < 0 && 
+          (player_x_value > 32 && player_x_value < (32 + BUFFER_SIZE))
+       || (player_x_value > 112 && player_x_value < (112 + BUFFER_SIZE))
+       || (player_x_value > 192 && player_x_value < (192 + BUFFER_SIZE))
+      ) {
+        input_buffer = LEFT;
+      }
+      else { // set X velocity to negative, left sprite
+        mmEffect(SFX_TURN);
+        x_velocity = -1 * SPEED;
         
+        // set the sprite id to base+4
+        bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex + 4) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
+      }        
     } 
-    // if right, set X velocity to negative, right sprite
-    else if (key_hit(KEY_RIGHT) || key_hit(KEY_R)) {
-      mmEffect(SFX_TURN);
-      x_velocity = 1 * SPEED;
+    else if (key_hit(KEY_RIGHT) || key_hit(KEY_R) || (x_velocity == 0 && input_buffer == RIGHT)) {
+      // reset input buffer 
+      input_buffer = NONE;
+
+      // right is touched while headed right and within a few pixels of the lane, buffer the input
+      if(x_velocity > 0 && 
+          (player_x_value < 32 && player_x_value > (32 - BUFFER_SIZE))
+       || (player_x_value < 112 && player_x_value > (112 - BUFFER_SIZE))
+       || (player_x_value < 192 && player_x_value > (192 - BUFFER_SIZE))
+      ) {
+        input_buffer = RIGHT;
+      }
+      else { // set X velocity to negative, right sprite
+        mmEffect(SFX_TURN);
+        x_velocity = 1 * SPEED;
       
-      // set the sprite id to base-4
-      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex - 4) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
+        // set the sprite id to base-4
+        bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex - 4) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
+      }
     }
 
     // if x is {at the edges}, teleport & keep velocity
