@@ -19,3 +19,15 @@
 - [ ] rewrite save logic
 - [ ] polish
 - [ ] go gold
+
+
+box stuff
+- [ ] "only for -> gameboy advanced" top left
+- [ ] in black footer "Game play on the Game Boy® Advanced video game systems"
+- [ ] in black footer "MADE IN AMERICA"
+- [ ] in black footer qr code to skiii.faber.build
+- [ ] add tonc and c99 logos as like publisher 
+- [ ] Big call to action! then screenshots and captions
+- [ ] top fold can be blue with plain logo, sides need to be blue too
+- [ ] right bind is like product dislaimers
+- [ ] bottom can be blank blue / clouds

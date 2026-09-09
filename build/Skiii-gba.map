@@ -943,35 +943,35 @@ Linker script and memory map
  .text          0x08000270      0x2a4 boot_loader.o
                 0x08000270                load_sprites
                 0x08000394                load_backgrounds
- .text          0x08000514      0x474 game_logic.o
+ .text          0x08000514      0x47c game_logic.o
                 0x08000514                game_setup
-                0x0800066c                process_game_frame
- .text          0x08000988       0x9c menu_navigation_manager.o
-                0x08000988                get_current
-                0x08000994                menu_set_active
-                0x080009a0                menu_nav_up
-                0x080009b8                menu_nav_down
-                0x080009d0                menu_nav_left
-                0x080009e8                menu_nav_right
-                0x08000a00                menu_select
- .text          0x08000a24       0x50 mgba_log.o
-                0x08000a24                dlog_open
-                0x08000a44                mgbaprintf
- .text          0x08000a74      0x638 music.o
-                0x08000e1c                init_music
-                0x08000ee0                loop_music_frame
- .text          0x080010ac      0x2d0 save_to_gba.o
-                0x080010ac                write_highscore
-                0x08001270                initialize_save_file
-                0x080012dc                read_highscore
- .text          0x0800137c       0x30 skiii.o
-                0x0800137c                set_game_state
-                0x08001388                turn_on_results_backdrop
-                0x08001398                turn_off_results_backdrop
- .text.startup  0x080013ac      0x35c skiii.o
-                0x080013ac                main
- .text          0x08001708      0x1d4 ui_manager.o
-                0x08001764                change_ui_state
+                0x08000658                process_game_frame
+ .text          0x08000990       0x9c menu_navigation_manager.o
+                0x08000990                get_current
+                0x0800099c                menu_set_active
+                0x080009a8                menu_nav_up
+                0x080009c0                menu_nav_down
+                0x080009d8                menu_nav_left
+                0x080009f0                menu_nav_right
+                0x08000a08                menu_select
+ .text          0x08000a2c       0x50 mgba_log.o
+                0x08000a2c                dlog_open
+                0x08000a4c                mgbaprintf
+ .text          0x08000a7c      0x638 music.o
+                0x08000e24                init_music
+                0x08000ee8                loop_music_frame
+ .text          0x080010b4      0x2d0 save_to_gba.o
+                0x080010b4                write_highscore
+                0x08001278                initialize_save_file
+                0x080012e4                read_highscore
+ .text          0x08001384       0x30 skiii.o
+                0x08001384                set_game_state
+                0x08001390                turn_on_results_backdrop
+                0x080013a0                turn_off_results_backdrop
+ .text.startup  0x080013b4      0x35c skiii.o
+                0x080013b4                main
+ .text          0x08001710      0x1cc ui_manager.o
+                0x0800176c                change_ui_state
  .text          0x080018dc      0x314 C:/devkitPro/libgba/lib\libmm.a(mm_effect.o)
                 0x080018dc                mmResetEffects
                 0x08001908                mmEffect
@@ -1847,155 +1847,156 @@ Linker script and memory map
                 0x03002354                        . = ALIGN (0x4)
                 0x03002354                        __bss_end__ = ABSOLUTE (.)
 
-.data           0x03002354     0x1a1c load address 0x08024400
+.data           0x03002354     0x19d4 load address 0x08024400
                 0x03002354                        __data_start__ = ABSOLUTE (.)
  *(.data*)
- .data          0x03002354        0xd game_logic.o
-                0x03002360                input_buffer
- *fill*         0x03002361        0x3 ff
- .data          0x03002364       0xd8 ui_manager.o
- .data          0x0300243c        0x8 C:/devkitPro/libtonc/lib\libtonc.a(tonc_input.o)
-                0x0300243c                __key_rpt
- .data          0x03002444        0x4 C:/devkitPro/libtonc/lib\libtonc.a(tte_main.o)
-                0x03002444                gp_tte_context
- .data.__sglue  0x03002448        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-findfp.o)
-                0x03002448                __sglue
+ .data          0x03002354        0x9 game_logic.o
+                0x0300235c                input_buffer
+ *fill*         0x0300235d        0x3 ff
+ .data          0x03002360       0x90 ui_manager.o
+ .data          0x030023f0        0x8 C:/devkitPro/libtonc/lib\libtonc.a(tonc_input.o)
+                0x030023f0                __key_rpt
+ .data          0x030023f8        0x4 C:/devkitPro/libtonc/lib\libtonc.a(tte_main.o)
+                0x030023f8                gp_tte_context
+ .data.__sglue  0x030023fc        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-findfp.o)
+                0x030023fc                __sglue
  .data._impure_ptr
-                0x03002454        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-impure.o)
-                0x03002454                _impure_ptr
+                0x03002408        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-impure.o)
+                0x03002408                _impure_ptr
+ *fill*         0x0300240c        0x4 ff
  .data._impure_data
-                0x03002458      0x200 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-impure.o)
-                0x03002458                _impure_data
+                0x03002410      0x200 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-impure.o)
+                0x03002410                _impure_data
  .data.__global_locale
-                0x03002658      0x254 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-locale.o)
-                0x03002658                __global_locale
+                0x03002610      0x254 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-locale.o)
+                0x03002610                __global_locale
  .data.__malloc_sbrk_base
-                0x030028ac        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-mallocr.o)
-                0x030028ac                __malloc_sbrk_base
+                0x03002864        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-mallocr.o)
+                0x03002864                __malloc_sbrk_base
  .data.__malloc_trim_threshold
-                0x030028b0        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-mallocr.o)
-                0x030028b0                __malloc_trim_threshold
- *fill*         0x030028b4        0x4 ff
+                0x03002868        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-mallocr.o)
+                0x03002868                __malloc_trim_threshold
+ *fill*         0x0300286c        0x4 ff
  .data.__malloc_av_
-                0x030028b8      0x408 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-mallocr.o)
-                0x030028b8                __malloc_av_
- .data.handles  0x03002cc0     0x1000 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
+                0x03002870      0x408 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libg.a(libc_a-mallocr.o)
+                0x03002870                __malloc_av_
+ .data.handles  0x03002c78     0x1000 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
  .data.__stderr_handle
-                0x03003cc0        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
+                0x03003c78        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
  .data.__stdout_handle
-                0x03003ccc        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
+                0x03003c84        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
  .data.__stdin_handle
-                0x03003cd8        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
+                0x03003c90        0xc C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-handle_manager.o)
  .data.devoptab_list
-                0x03003ce4       0x8c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-iosupport.o)
-                0x03003ce4                devoptab_list
+                0x03003c9c       0x8c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb\libsysbase.a(libsysbase_libsysbase_a-iosupport.o)
+                0x03003c9c                devoptab_list
  *(.gnu.linkonce.d*)
-                0x03003d70                        . = ALIGN (0x4)
-                0x08025e1c                        __preinit_lma = (__data_lma + SIZEOF (.data))
+                0x03003d28                        . = ALIGN (0x4)
+                0x08025dd4                        __preinit_lma = (__data_lma + SIZEOF (.data))
 
-.igot.plt       0x03003d70        0x0 load address 0x08025e1c
- .igot.plt      0x03003d70        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
+.igot.plt       0x03003d28        0x0 load address 0x08025dd4
+ .igot.plt      0x03003d28        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
-.preinit_array  0x03003d70        0x0 load address 0x08025e1c
-                0x03003d70                        __preinit_array_start = ABSOLUTE (.)
+.preinit_array  0x03003d28        0x0 load address 0x08025dd4
+                0x03003d28                        __preinit_array_start = ABSOLUTE (.)
  *(.preinit_array)
-                0x03003d70                        __preinit_array_end = ABSOLUTE (.)
-                0x08025e1c                        __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
+                0x03003d28                        __preinit_array_end = ABSOLUTE (.)
+                0x08025dd4                        __init_lma = (__preinit_lma + SIZEOF (.preinit_array))
 
-.init_array     0x03003d70        0x4 load address 0x08025e1c
-                0x03003d70                        __init_array_start = ABSOLUTE (.)
+.init_array     0x03003d28        0x4 load address 0x08025dd4
+                0x03003d28                        __init_array_start = ABSOLUTE (.)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
- .init_array    0x03003d70        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb/crtbegin.o
-                0x03003d74                        __init_array_end = ABSOLUTE (.)
-                0x08025e20                        __fini_lma = (__init_lma + SIZEOF (.init_array))
+ .init_array    0x03003d28        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb/crtbegin.o
+                0x03003d2c                        __init_array_end = ABSOLUTE (.)
+                0x08025dd8                        __fini_lma = (__init_lma + SIZEOF (.init_array))
 
-.fini_array     0x03003d74        0x4 load address 0x08025e20
-                0x03003d74                        __fini_array_start = ABSOLUTE (.)
+.fini_array     0x03003d2c        0x4 load address 0x08025dd8
+                0x03003d2c                        __fini_array_start = ABSOLUTE (.)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array)
- .fini_array    0x03003d74        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb/crtbegin.o
-                0x03003d78                        __fini_array_end = ABSOLUTE (.)
-                0x08025e24                        __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
+ .fini_array    0x03003d2c        0x4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb/crtbegin.o
+                0x03003d30                        __fini_array_end = ABSOLUTE (.)
+                0x08025ddc                        __jcr_lma = (__fini_lma + SIZEOF (.fini_array))
 
 .jcr
  *(.jcr)
-                0x03003d78                        __data_end__ = ABSOLUTE (.)
-                0x08025e24                        __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
-                0x03003d78                        __iwram_overlay_start = .
+                0x03003d30                        __data_end__ = ABSOLUTE (.)
+                0x08025ddc                        __iwram_overlay_lma = (__jcr_lma + SIZEOF (.jcr))
+                0x03003d30                        __iwram_overlay_start = .
 
-.iwram0         0x03003d78        0x0 load address 0x08025e24
+.iwram0         0x03003d30        0x0 load address 0x08025ddc
  *(.iwram0)
-                0x03003d78                        . = ALIGN (0x4)
-                0x08025e24                        PROVIDE (__load_start_iwram0 = LOADADDR (.iwram0))
-                0x08025e24                        PROVIDE (__load_stop_iwram0 = (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
+                0x03003d30                        . = ALIGN (0x4)
+                0x08025ddc                        PROVIDE (__load_start_iwram0 = LOADADDR (.iwram0))
+                0x08025ddc                        PROVIDE (__load_stop_iwram0 = (LOADADDR (.iwram0) + SIZEOF (.iwram0)))
 
-.iwram1         0x03003d78        0x0
+.iwram1         0x03003d30        0x0
  *(.iwram1)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram1 = LOADADDR (.iwram1))
                 [!provide]                        PROVIDE (__load_stop_iwram1 = (LOADADDR (.iwram1) + SIZEOF (.iwram1)))
 
-.iwram2         0x03003d78        0x0
+.iwram2         0x03003d30        0x0
  *(.iwram2)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram2 = LOADADDR (.iwram2))
                 [!provide]                        PROVIDE (__load_stop_iwram2 = (LOADADDR (.iwram2) + SIZEOF (.iwram2)))
 
-.iwram3         0x03003d78        0x0
+.iwram3         0x03003d30        0x0
  *(.iwram3)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram3 = LOADADDR (.iwram3))
                 [!provide]                        PROVIDE (__load_stop_iwram3 = (LOADADDR (.iwram3) + SIZEOF (.iwram3)))
 
-.iwram4         0x03003d78        0x0
+.iwram4         0x03003d30        0x0
  *(.iwram4)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram4 = LOADADDR (.iwram4))
                 [!provide]                        PROVIDE (__load_stop_iwram4 = (LOADADDR (.iwram4) + SIZEOF (.iwram4)))
 
-.iwram5         0x03003d78        0x0
+.iwram5         0x03003d30        0x0
  *(.iwram5)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram5 = LOADADDR (.iwram5))
                 [!provide]                        PROVIDE (__load_stop_iwram5 = (LOADADDR (.iwram5) + SIZEOF (.iwram5)))
 
-.iwram6         0x03003d78        0x0
+.iwram6         0x03003d30        0x0
  *(.iwram6)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram6 = LOADADDR (.iwram6))
                 [!provide]                        PROVIDE (__load_stop_iwram6 = (LOADADDR (.iwram6) + SIZEOF (.iwram6)))
 
-.iwram7         0x03003d78        0x0
+.iwram7         0x03003d30        0x0
  *(.iwram7)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram7 = LOADADDR (.iwram7))
                 [!provide]                        PROVIDE (__load_stop_iwram7 = (LOADADDR (.iwram7) + SIZEOF (.iwram7)))
 
-.iwram8         0x03003d78        0x0
+.iwram8         0x03003d30        0x0
  *(.iwram8)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram8 = LOADADDR (.iwram8))
                 [!provide]                        PROVIDE (__load_stop_iwram8 = (LOADADDR (.iwram8) + SIZEOF (.iwram8)))
 
-.iwram9         0x03003d78        0x0
+.iwram9         0x03003d30        0x0
  *(.iwram9)
-                0x03003d78                        . = ALIGN (0x4)
+                0x03003d30                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__load_start_iwram9 = LOADADDR (.iwram9))
                 [!provide]                        PROVIDE (__load_stop_iwram9 = (LOADADDR (.iwram9) + SIZEOF (.iwram9)))
-                0x03003d78                        __iwram_overlay_end = .
-                0x08025e24                        __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
-                0x03003d78                        __iheap_start = .
+                0x03003d30                        __iwram_overlay_end = .
+                0x08025ddc                        __ewram_lma = (__iwram_overlay_lma + (__iwram_overlay_end - __iwram_overlay_start))
+                0x03003d30                        __iheap_start = .
                 0x02000000                        __ewram_start = ORIGIN (ewram)
 
-.ewram          0x02000000       0x5c load address 0x08025e24
+.ewram          0x02000000       0x5c load address 0x08025ddc
  *(.ewram*)
  .ewram         0x02000000       0x5c C:/devkitPro/libtonc/lib\libtonc.a(tonc_nocash.o)
                 0x02000000                nocash_message
                 0x02000008                nocash_buffer
                 0x0200005c                        . = ALIGN (0x4)
                 0x0200005c                        __ewram_end = ABSOLUTE (.)
-                0x08025e80                        __pad_lma = (__ewram_lma + SIZEOF (.ewram))
+                0x08025e38                        __pad_lma = (__ewram_lma + SIZEOF (.ewram))
 
 .sbss           0x0200005c        0x0
                 0x0200005c                        __sbss_start__ = ABSOLUTE (.)
@@ -2005,13 +2006,13 @@ Linker script and memory map
                 0x0200005c                        __end__ = ABSOLUTE (.)
                 0x0200005c                        __eheap_start = ABSOLUTE (.)
 
-.pad            0x0200005c        0x8 load address 0x08025e80
+.pad            0x0200005c        0x8 load address 0x08025e38
                 0x0200005c        0x4 LONG 0x52416b64
                 0x02000060        0x4 LONG 0x4d
                 0x02000064                        . = ALIGN (0x4)
-                0x08025e88                        __rom_end__ = (__pad_lma + SIZEOF (.pad))
+                0x08025e40                        __rom_end__ = (__pad_lma + SIZEOF (.pad))
 
-.rel.dyn        0x02000064        0x0 load address 0x08025e88
+.rel.dyn        0x02000064        0x0 load address 0x08025e40
  .rel.iplt      0x02000064        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/../../../../arm-none-eabi/lib/thumb/gba_crt0.o
 
 .stab
@@ -2145,34 +2146,34 @@ Linker script and memory map
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x49aa
+.debug_info     0x00000000     0x496d
  *(.debug_info)
  .debug_info    0x00000000      0x9e2 boot_loader.o
- .debug_info    0x000009e2      0x7d7 game_logic.o
- .debug_info    0x000011b9      0x167 menu_navigation_manager.o
- .debug_info    0x00001320      0x195 mgba_log.o
- .debug_info    0x000014b5      0xf0c music.o
- .debug_info    0x000023c1      0x5fa save_to_gba.o
- .debug_info    0x000029bb      0xbce skiii.o
- .debug_info    0x00003589      0x752 ui_manager.o
- .debug_info    0x00003cdb       0x3e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
- .debug_info    0x00003d19       0x3e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
- .debug_info    0x00003d57       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
- .debug_info    0x00003d93       0xda C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
- .debug_info    0x00003e6d       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
- .debug_info    0x00003e9e       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
- .debug_info    0x00003ecf       0xd3 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
- .debug_info    0x00003fa2       0x57 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
- .debug_info    0x00003ff9       0xe2 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
- .debug_info    0x000040db       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
- .debug_info    0x00004117       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
- .debug_info    0x00004153       0x24 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
- .debug_info    0x00004177      0x427 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
- .debug_info    0x0000459e      0x3aa C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
- .debug_info    0x00004948       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
- .debug_info    0x00004979       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
+ .debug_info    0x000009e2      0x7cf game_logic.o
+ .debug_info    0x000011b1      0x167 menu_navigation_manager.o
+ .debug_info    0x00001318      0x195 mgba_log.o
+ .debug_info    0x000014ad      0xf0c music.o
+ .debug_info    0x000023b9      0x5fa save_to_gba.o
+ .debug_info    0x000029b3      0xbce skiii.o
+ .debug_info    0x00003581      0x71d ui_manager.o
+ .debug_info    0x00003c9e       0x3e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
+ .debug_info    0x00003cdc       0x3e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
+ .debug_info    0x00003d1a       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
+ .debug_info    0x00003d56       0xda C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
+ .debug_info    0x00003e30       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
+ .debug_info    0x00003e61       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
+ .debug_info    0x00003e92       0xd3 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
+ .debug_info    0x00003f65       0x57 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
+ .debug_info    0x00003fbc       0xe2 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
+ .debug_info    0x0000409e       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
+ .debug_info    0x000040da       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
+ .debug_info    0x00004116       0x24 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
+ .debug_info    0x0000413a      0x427 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
+ .debug_info    0x00004561      0x3aa C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
+ .debug_info    0x0000490b       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
+ .debug_info    0x0000493c       0x31 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
 
-.debug_abbrev   0x00000000     0x18fe
+.debug_abbrev   0x00000000     0x18f3
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x2ed boot_loader.o
  .debug_abbrev  0x000002ed      0x31d game_logic.o
@@ -2181,121 +2182,121 @@ Linker script and memory map
  .debug_abbrev  0x00000831      0x341 music.o
  .debug_abbrev  0x00000b72      0x21f save_to_gba.o
  .debug_abbrev  0x00000d91      0x3b5 skiii.o
- .debug_abbrev  0x00001146      0x320 ui_manager.o
- .debug_abbrev  0x00001466       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
- .debug_abbrev  0x0000148e       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
- .debug_abbrev  0x000014b6       0x26 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
- .debug_abbrev  0x000014dc       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
- .debug_abbrev  0x00001504       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
- .debug_abbrev  0x0000152c       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
- .debug_abbrev  0x00001554       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
- .debug_abbrev  0x0000157c       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
- .debug_abbrev  0x000015a4       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
- .debug_abbrev  0x000015cc       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
- .debug_abbrev  0x000015f4       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
- .debug_abbrev  0x0000161c       0x14 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
- .debug_abbrev  0x00001630      0x158 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
- .debug_abbrev  0x00001788      0x126 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
- .debug_abbrev  0x000018ae       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
- .debug_abbrev  0x000018d6       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
+ .debug_abbrev  0x00001146      0x315 ui_manager.o
+ .debug_abbrev  0x0000145b       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
+ .debug_abbrev  0x00001483       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
+ .debug_abbrev  0x000014ab       0x26 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
+ .debug_abbrev  0x000014d1       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
+ .debug_abbrev  0x000014f9       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
+ .debug_abbrev  0x00001521       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
+ .debug_abbrev  0x00001549       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
+ .debug_abbrev  0x00001571       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
+ .debug_abbrev  0x00001599       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
+ .debug_abbrev  0x000015c1       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
+ .debug_abbrev  0x000015e9       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
+ .debug_abbrev  0x00001611       0x14 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
+ .debug_abbrev  0x00001625      0x158 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
+ .debug_abbrev  0x0000177d      0x126 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
+ .debug_abbrev  0x000018a3       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
+ .debug_abbrev  0x000018cb       0x28 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
 
-.debug_line     0x00000000     0x3537
+.debug_line     0x00000000     0x354e
  *(.debug_line)
- .debug_line    0x00000000      0x3e5 boot_loader.o
- .debug_line    0x000003e5      0x7d3 game_logic.o
- .debug_line    0x00000bb8      0x187 menu_navigation_manager.o
- .debug_line    0x00000d3f      0x1f6 mgba_log.o
- .debug_line    0x00000f35      0xa4c music.o
- .debug_line    0x00001981      0x64b save_to_gba.o
- .debug_line    0x00001fcc      0x724 skiii.o
- .debug_line    0x000026f0      0x3ed ui_manager.o
- .debug_line    0x00002add       0x67 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
- .debug_line    0x00002b44       0x73 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
- .debug_line    0x00002bb7       0x4a C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
- .debug_line    0x00002c01       0x58 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
- .debug_line    0x00002c59       0x52 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
- .debug_line    0x00002cab       0x53 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
- .debug_line    0x00002cfe      0x158 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
- .debug_line    0x00002e56      0x167 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
- .debug_line    0x00002fbd       0x9a C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
- .debug_line    0x00003057       0x57 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
- .debug_line    0x000030ae       0x60 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
- .debug_line    0x0000310e       0x4e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
- .debug_line    0x0000315c      0x149 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
- .debug_line    0x000032a5      0x1e7 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
- .debug_line    0x0000348c       0x54 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
- .debug_line    0x000034e0       0x57 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
+ .debug_line    0x00000000      0x3e3 boot_loader.o
+ .debug_line    0x000003e3      0x7f1 game_logic.o
+ .debug_line    0x00000bd4      0x187 menu_navigation_manager.o
+ .debug_line    0x00000d5b      0x1f6 mgba_log.o
+ .debug_line    0x00000f51      0xa4c music.o
+ .debug_line    0x0000199d      0x64b save_to_gba.o
+ .debug_line    0x00001fe8      0x724 skiii.o
+ .debug_line    0x0000270c      0x3e8 ui_manager.o
+ .debug_line    0x00002af4       0x67 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
+ .debug_line    0x00002b5b       0x73 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
+ .debug_line    0x00002bce       0x4a C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
+ .debug_line    0x00002c18       0x58 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
+ .debug_line    0x00002c70       0x52 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
+ .debug_line    0x00002cc2       0x53 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
+ .debug_line    0x00002d15      0x158 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
+ .debug_line    0x00002e6d      0x167 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
+ .debug_line    0x00002fd4       0x9a C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
+ .debug_line    0x0000306e       0x57 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
+ .debug_line    0x000030c5       0x60 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
+ .debug_line    0x00003125       0x4e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
+ .debug_line    0x00003173      0x149 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
+ .debug_line    0x000032bc      0x1e7 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
+ .debug_line    0x000034a3       0x54 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
+ .debug_line    0x000034f7       0x57 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
 
-.debug_frame    0x00000000      0x698
+.debug_frame    0x00000000      0x694
  *(.debug_frame)
  .debug_frame   0x00000000       0x58 boot_loader.o
- .debug_frame   0x00000058       0x6c game_logic.o
- .debug_frame   0x000000c4       0x88 menu_navigation_manager.o
- .debug_frame   0x0000014c       0x3c mgba_log.o
- .debug_frame   0x00000188       0xc8 music.o
- .debug_frame   0x00000250       0x74 save_to_gba.o
- .debug_frame   0x000002c4       0x6c skiii.o
- .debug_frame   0x00000330       0x88 ui_manager.o
- .debug_frame   0x000003b8       0x20 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
- .debug_frame   0x000003d8       0x20 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
- .debug_frame   0x000003f8       0xac C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
- .debug_frame   0x000004a4       0x50 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
- .debug_frame   0x000004f4       0xc4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
- .debug_frame   0x000005b8       0x20 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
- .debug_frame   0x000005d8       0x24 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
- .debug_frame   0x000005fc       0x2c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
- .debug_frame   0x00000628       0x34 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
- .debug_frame   0x0000065c       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
+ .debug_frame   0x00000058       0x68 game_logic.o
+ .debug_frame   0x000000c0       0x88 menu_navigation_manager.o
+ .debug_frame   0x00000148       0x3c mgba_log.o
+ .debug_frame   0x00000184       0xc8 music.o
+ .debug_frame   0x0000024c       0x74 save_to_gba.o
+ .debug_frame   0x000002c0       0x6c skiii.o
+ .debug_frame   0x0000032c       0x88 ui_manager.o
+ .debug_frame   0x000003b4       0x20 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
+ .debug_frame   0x000003d4       0x20 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
+ .debug_frame   0x000003f4       0xac C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x000004a0       0x50 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
+ .debug_frame   0x000004f0       0xc4 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
+ .debug_frame   0x000005b4       0x20 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
+ .debug_frame   0x000005d4       0x24 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
+ .debug_frame   0x000005f8       0x2c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
+ .debug_frame   0x00000624       0x34 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
+ .debug_frame   0x00000658       0x3c C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
 
-.debug_str      0x00000000     0x1996
+.debug_str      0x00000000     0x1987
  *(.debug_str)
- .debug_str     0x00000000     0x1996 boot_loader.o
+ .debug_str     0x00000000     0x1987 boot_loader.o
                                 0x507 (size before relaxing)
- .debug_str     0x00001996        0x0 game_logic.o
+ .debug_str     0x00001987        0x0 game_logic.o
                                 0x500 (size before relaxing)
- .debug_str     0x00001996        0x0 menu_navigation_manager.o
+ .debug_str     0x00001987        0x0 menu_navigation_manager.o
                                 0x19f (size before relaxing)
- .debug_str     0x00001996        0x0 mgba_log.o
+ .debug_str     0x00001987        0x0 mgba_log.o
                                 0x1d1 (size before relaxing)
- .debug_str     0x00001996        0x0 music.o
+ .debug_str     0x00001987        0x0 music.o
                                 0x42b (size before relaxing)
- .debug_str     0x00001996        0x0 save_to_gba.o
+ .debug_str     0x00001987        0x0 save_to_gba.o
                                 0x306 (size before relaxing)
- .debug_str     0x00001996        0x0 skiii.o
+ .debug_str     0x00001987        0x0 skiii.o
                                 0x69d (size before relaxing)
- .debug_str     0x00001996        0x0 ui_manager.o
-                                0x38b (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
+ .debug_str     0x00001987        0x0 ui_manager.o
+                                0x37c (size before relaxing)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivsi3.o)
                                  0xf6 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_divsi3.o)
                                  0xf4 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_dvmd_tls.o)
                                  0xf7 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_call_via_rX.o)
                                 0x19e (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uqi.o)
                                  0xf1 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_thumb1_case_uhi.o)
                                  0xf1 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_addsubdf3.o)
                                 0x188 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_muldivdf3.o)
                                 0x108 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_cmpdf2.o)
                                 0x191 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_unorddf2.o)
                                  0xf6 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_arm_fixdfsi.o)
                                  0xf3 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_aeabi_uldivmod.o)
                                  0xd7 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
                                 0x6ad (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
                                 0x686 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzdi2.o)
                                  0xe4 (size before relaxing)
- .debug_str     0x00001996        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
+ .debug_str     0x00001987        0x0 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_clzsi2.o)
                                  0xe4 (size before relaxing)
 
 .debug_loc
@@ -2666,42 +2667,42 @@ OUTPUT(C:/Users/super/Documents/Development/Skiii-gba/Skiii-gba.elf elf32-little
 LOAD linker stubs
 
 .debug_loclists
-                0x00000000     0x18f2
+                0x00000000     0x1904
  .debug_loclists
                 0x00000000      0x140 boot_loader.o
  .debug_loclists
-                0x00000140      0x3aa game_logic.o
+                0x00000140      0x3bc game_logic.o
  .debug_loclists
-                0x000004ea      0x7de music.o
+                0x000004fc      0x7de music.o
  .debug_loclists
-                0x00000cc8      0x27d save_to_gba.o
+                0x00000cda      0x27d save_to_gba.o
  .debug_loclists
-                0x00000f45      0x45a skiii.o
+                0x00000f57      0x45a skiii.o
  .debug_loclists
-                0x0000139f      0x117 ui_manager.o
+                0x000013b1      0x117 ui_manager.o
  .debug_loclists
-                0x000014b6      0x193 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
+                0x000014c8      0x193 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
  .debug_loclists
-                0x00001649      0x2a9 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
+                0x0000165b      0x2a9 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
 
 .debug_rnglists
-                0x00000000      0x402
+                0x00000000      0x408
  .debug_rnglists
                 0x00000000       0x30 boot_loader.o
  .debug_rnglists
-                0x00000030       0x7e game_logic.o
+                0x00000030       0x8f game_logic.o
  .debug_rnglists
-                0x000000ae      0x173 music.o
+                0x000000bf      0x173 music.o
  .debug_rnglists
-                0x00000221       0xe6 save_to_gba.o
+                0x00000232       0xe6 save_to_gba.o
  .debug_rnglists
-                0x00000307       0x74 skiii.o
+                0x00000318       0x74 skiii.o
  .debug_rnglists
-                0x0000037b       0x45 ui_manager.o
+                0x0000038c       0x3a ui_manager.o
  .debug_rnglists
-                0x000003c0       0x2e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
+                0x000003c6       0x2e C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_muldi3.o)
  .debug_rnglists
-                0x000003ee       0x14 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
+                0x000003f4       0x14 C:/devkitPro/devkitARM/bin/../lib/gcc/arm-none-eabi/16.1.0/thumb\libgcc.a(_udivmoddi4.o)
 
 .debug_line_str
                 0x00000000       0xe2
