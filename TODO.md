@@ -16,6 +16,6 @@
 - [x] figure out what to do with the options menu lol
 - [x] input buffer
 - [x] fix ungettable bug
-- [ ]  
+- [ ] rewrite save logic
 - [ ] polish
 - [ ] go gold

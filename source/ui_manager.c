@@ -56,7 +56,6 @@ static void hide_all_objects(void){
 
 void change_ui_state(ProgramState state) {
   if (state == MENU) {
-    // TODO: Turn on the menu background layers that were loaded at boot.
     // unload everything else
     hide_all_objects();
     turn_on_Skiii_logo();
@@ -111,12 +110,12 @@ void change_ui_state(ProgramState state) {
       (&allObjects[i])->attr0  &= ~(1 << 9);
     }
 
-    // TODO: delete.  Debug: select to exit SKI mode
-    static MenuNode ski_menu_nodes[3] = {
-      // x, y, up, down, left, right, select
-      { 255, 255, NULL, NULL, NULL, NULL, change_state_to_menu },
-    };
-    menu_set_active(&ski_menu_nodes[0]);
+    // Debug: select to exit SKI mode
+    // static MenuNode ski_menu_nodes[3] = {
+    //   // x, y, up, down, left, right, select
+    //   { 255, 255, NULL, NULL, NULL, NULL, change_state_to_menu },
+    // };
+    // menu_set_active(&ski_menu_nodes[0]);
     oam_copy(oam_mem, allObjects, 24);
 
   } else if (state == RESULTS) {

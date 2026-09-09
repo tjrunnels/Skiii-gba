@@ -189,19 +189,8 @@ void load_backgrounds(void) {
   REG_BG1HOFS = 200;
   REG_BG1VOFS = 220;
 
-  // TODO: cleanup
-  // BG2: Tonc Text Engine (TTE) sharing CBB 2 (font starting at tile index 100) and SBB 26 for map
-  // Uses dedicated Background Palette Bank 2 so it doesn't overwrite the logo's palette (Bank 1)
-  // Primary ink: Dominant blue (skiii_logoPal[3]), Secondary/shadow: Alpine green (RGB15(4, 28, 10))
-  tte_init_se(
-      2,                                                  // BG layer 2
-      BG_CBB(2) | BG_SBB(26),                             // CBB 2, SBB 26
-      SE_ID(100) | SE_PALBANK(1),                         // Base screen entry: tile ID 100, dedicated palette bank 2
-      skiii_logoPal[11] << 16 | skiii_logoPal[3],         // [Shadow/alt color] <<16 | [Ink color]
-      100,                                                // Tile offset in CBB 2: load font starting at tile 100
-      NULL,                                               // Default sys8 font
-      NULL                                                // Default renderer
-  );
+  // BG2: Tonc Text Engine (TTE) using CBB2[100] and SBB 26 for map
+  tte_init_se( 2,  BG_CBB(2) | BG_SBB(26), SE_ID(100) | SE_PALBANK(1), skiii_logoPal[11] << 16 | skiii_logoPal[3], 100, NULL, NULL);
   REG_BG2CNT |= BG_PRIO(0);
   tte_init_con(); // Connects stdio/iprintf/tte_printf to TTE
 

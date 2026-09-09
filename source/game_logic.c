@@ -57,8 +57,6 @@ void game_setup(int frame_count) {
     } else if(lane == 2) {
         next_flag_left_init->attr1 = (next_flag_left_init->attr1 & ~ATTR1_X_MASK) | ATTR1_X(162); //162
         next_flag_right_init->attr1 = (next_flag_right_init->attr1 & ~ATTR1_X_MASK) | ATTR1_X(222); //222
-    } else {
-      SPEED = -1 * SPEED; //if we start reversing, we'll know theres a bug haha //TODO: delete
     }
 
     //set y
@@ -176,8 +174,6 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       } else if(lane == 2) {
         next_flag_left->attr1 = (next_flag_left->attr1 & ~ATTR1_X_MASK) | ATTR1_X(162); //162
         next_flag_right->attr1 = (next_flag_right->attr1 & ~ATTR1_X_MASK) | ATTR1_X(222); //222
-      } else {
-        SPEED = -1 * SPEED; //if we start reversing, we'll know theres a bug haha //TODO: delete
       }
     
       //set y
