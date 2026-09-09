@@ -15,8 +15,7 @@
 - [x] Credits screen?  If i get text working
 - [x] figure out what to do with the options menu lol
 - [x] input buffer
-- [ ] fix ungettable flags (should be kinda impossible ~120)
-- [ ] add music volume to options menu
+- [x] fix ungettable bug
 - [ ]  
 - [ ] polish
 - [ ] go gold

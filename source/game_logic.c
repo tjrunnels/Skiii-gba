@@ -31,12 +31,12 @@ void game_setup(int frame_count) {
   frames_between_flags = 60;
   srand(frame_count ^ REG_VCOUNT); // frame count mixed with current line being drawn... seems pretty random to me
   
-  //spawn initial 5 flags
-  for(int i = 0; i < 5; i++) {
+  //spawn initial 7 flags
+  for(int i = 0; i < 7; i++) {
     OBJ_ATTR *next_flag_left_init = &allObjects[(next_flag_group*2) + 10];
     OBJ_ATTR *next_flag_right_init = &allObjects[(next_flag_group*2) + 11];
     
-    if(++next_flag_group == 5) {
+    if(++next_flag_group == 7) {
       // loop 
       next_flag_group = 0;
     }
@@ -155,14 +155,15 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       OBJ_ATTR *next_flag_left = &allObjects[(next_flag_group*2) + 10];
       OBJ_ATTR *next_flag_right = &allObjects[(next_flag_group*2) + 11];
       
-      if(++next_flag_group == 5) {
+      if(++next_flag_group == 7) {
         // loop 
         next_flag_group = 0;
       }
 
       const short int lane = (rand() % 3); // * 2; //0 or 2
+
       char lane_str[16];
-      snprintf(lane_str, sizeof(lane_str), "%d", next_flag_group * 1000);
+      snprintf(lane_str, sizeof(lane_str), "fr:%d", frames_between_flags);
       print(lane_str);
 
 
@@ -185,11 +186,11 @@ FrameResult process_game_frame(BootReturn bootReturn) {
 
 
       //speed up script 
-      frames_between_flags = frames_between_flags > 1 ? frames_between_flags - 1 : frames_between_flags;
+      frames_between_flags = frames_between_flags > 31 ? frames_between_flags - 1 : frames_between_flags;
     }
 
     // each flag group
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
       OBJ_ATTR *flagL = &allObjects[(i*2) + 10];
       int flagL_y_value = flagL->attr0 & ATTR0_Y_MASK;
 
@@ -216,17 +217,18 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       if(!(flagL_y_value > 161 && flagL_y_value < 230)) {
         const int new_y_value = (flagL_y_value - 1) & 0xFF; //bitwise mask will cause it to warp back around to 255
 
-        if(flagL_y_value < 5) {
-            char lane_str[16];
-            snprintf(lane_str, sizeof(lane_str), "%d", new_y_value);
-            print(lane_str);
-        }
+        // debug
+        // if(flagL_y_value < 5) {
+        //     char lane_str[16];
+        //     snprintf(lane_str, sizeof(lane_str), "%d", new_y_value);
+        //     print(lane_str);
+        // }
 
         OBJ_ATTR *flagR = &allObjects[(i*2) + 11];
         flagL->attr0 = (flagL->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(new_y_value);
         flagR->attr0 = (flagR->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(new_y_value);
       }
     }    
-    oam_copy(oam_mem, allObjects, 20);
+    oam_copy(oam_mem, allObjects, 24);
     return to_return;
 };

@@ -69,7 +69,9 @@ int main() {
 
   int frame_count = 0;
 
-  init_music();   
+  init_music();
+
+  int is_first_menu_frame = 1;
 
   // main game loop
   while (1) {
@@ -77,34 +79,28 @@ int main() {
     mmFrame();
     loop_music_frame();
     frame_count++;
-    // if(game_state == MENU) {
-    //   print("state: menu");
-    // } else if (game_state == OPTIONS) {
-    //   print("state: options");
-    // } else if (game_state == SKI) {
-    //   print("state: Ski");
-    // } else if (game_state == CREDITS) {
-    //   print("state: credits");
-    // }
-
 
     key_poll();       //  snapshot of keys i think?
 
+    // scroll the snow.  TODO: make dynamic? 
     SCROLL_DELTA_Y += 1;
-    // SCROLL_DELTA_X += key_tri_shoulder();
 
     REG_BG0HOFS = SCROLL_DELTA_X;
     REG_BG0VOFS = SCROLL_DELTA_Y;
 
     if(game_state != SKI && game_state != RESULTS) {
-      in_ski_start_animation = STANDBY;
-      in_result_animation = _STANDBY;
+      if(is_first_menu_frame == 1) {
+        is_first_menu_frame = 0;
+        in_ski_start_animation = STANDBY;
+        in_result_animation = _STANDBY;
 
-      // hide skier
-      bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(235);
+        // hide skier
+        bootReturn.player_icon->attr0 = (bootReturn.player_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(235);
 
-      // hide flags
-      game_setup(frame_count);
+        // hide flags
+        game_setup(frame_count);
+      }
+
 
 
       // keybindings move the menu navigation system
@@ -121,6 +117,7 @@ int main() {
       bootReturn.flag_icon->attr1 = (bootReturn.flag_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(get_current()->x);
       oam_copy(oam_mem, allObjects, 4);
     } else if (game_state == SKI) {
+      is_first_menu_frame = 1;
       tte_printf("#{es;P:203,8}%03d", game_score);
 
       if(in_ski_start_animation == STANDBY) {
@@ -177,8 +174,9 @@ int main() {
       }
 
 
-      oam_copy(oam_mem, allObjects, 20);
+      oam_copy(oam_mem, allObjects, 24);
     } else if (game_state == RESULTS) {
+      is_first_menu_frame = 1;
       in_ski_start_animation = _STANDBY;
 
       if(in_result_animation == _STANDBY) {

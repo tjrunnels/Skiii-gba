@@ -109,8 +109,8 @@ BootReturn load_sprites(void) {
   flag_icon->attr1 = ATTR1_SIZE_16x16;
   flag_icon->attr2 = ATTR2_ID(LOADED_TILE_COUNT) | ATTR2_PALBANK(2);
 
-  // left/right of 5 flag groups
-  for(int i = 10; i < 20; i++) {
+  // left/right of 7 flag groups
+  for(int i = 10; i < 24; i++) {
     OBJ_ATTR *flag_icon_i = &allObjects[i];
     flag_icon_i->attr0 = ATTR0_4BPP | ATTR0_HIDE | ATTR0_Y(255);
     flag_icon_i->attr1 = ATTR1_SIZE_16x16 | ATTR1_X(255);
@@ -134,7 +134,7 @@ BootReturn load_sprites(void) {
   to_return.player_icon = player_icon;
   to_return.playerImageBaseIndex = PLAYER_IMAGE_BASE_INDEX;
 
-  oam_copy(oam_mem, allObjects, 20);
+  oam_copy(oam_mem, allObjects, 24);
 
   return to_return;
 }
