@@ -3,7 +3,6 @@
 #include "snow_floor.h"
 #include "ui_manager.h"
 #include "menu_navigation_manager.h"
-#include "mgba_log.h"
 #include <tonc.h>
 #include "game_logic.h"
 #include "save_to_gba.h"
@@ -50,10 +49,6 @@ int main() {
   // init sfx engine (sets up sound regs itself, don't overwrite after)
   mmInitDefault((mm_addr)soundbank_bin, 8);
   mmSetEffectsVolume(1024); // max SFX volume (0-1024 = 0%-100%)
-
-  if (dlog_open()) {
-    mgbaprintf("mGBA logging ready\n");
-  }
 
   // gameplay variables
   SkiStartAnimation in_ski_start_animation = STANDBY;
@@ -112,7 +107,6 @@ int main() {
         menu_select();
       }
 
-      // mgbaprintf("Current menu node: (%d, %d)\n", get_current()->x, get_current()->y);
       bootReturn.flag_icon->attr0 = (bootReturn.flag_icon->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(get_current()->y);
       bootReturn.flag_icon->attr1 = (bootReturn.flag_icon->attr1 & ~ATTR1_X_MASK) | ATTR1_X(get_current()->x);
       oam_copy(oam_mem, allObjects, 4);
@@ -127,7 +121,6 @@ int main() {
       if(in_ski_start_animation == BEGIN) {
         // reset text bg location      
         REG_BG2VOFS = 0;
-        print("Beginning!");
         
         // face forward
         bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);

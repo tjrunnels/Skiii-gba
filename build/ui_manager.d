@@ -1,7 +1,6 @@
 ui_manager.o: \
  C:/Users/super/Documents/Development/Skiii-gba/source/ui_manager.c \
  C:/Users/super/Documents/Development/Skiii-gba/source/skiii.h \
- C:/Users/super/Documents/Development/Skiii-gba/source/mgba_log.h \
  C:/devkitPro/libtonc/include/tonc.h \
  C:/devkitPro/libtonc/include/tonc_types.h \
  C:/devkitPro/libtonc/include/tonc_memmap.h \
@@ -22,7 +21,6 @@ ui_manager.o: \
  C:/Users/super/Documents/Development/Skiii-gba/source/ui_manager.h \
  C:/Users/super/Documents/Development/Skiii-gba/source/save_to_gba.h
 C:/Users/super/Documents/Development/Skiii-gba/source/skiii.h:
-C:/Users/super/Documents/Development/Skiii-gba/source/mgba_log.h:
 C:/devkitPro/libtonc/include/tonc.h:
 C:/devkitPro/libtonc/include/tonc_types.h:
 C:/devkitPro/libtonc/include/tonc_memmap.h:

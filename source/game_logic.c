@@ -1,5 +1,4 @@
 #include <tonc.h>
-#include "mgba_log.h"
 #include "boot_loader.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,14 +8,8 @@
 #include "soundbank.h"
 
 
-static void print(char message[20]) {
-  mgbaprintf(message);
-}
-
 static int SPEED = 2;
 static int x_velocity = 0; 
-static int y_velocity = 1;
-// static int canMove = 0;
 
 static int next_flag_group = 0;
 static int frame_countdown_to_next_flag = 60;
@@ -24,11 +17,39 @@ static int frames_between_flags = 60;
 
 typedef enum { LEFT, RIGHT, NONE } InputBuffer;
 InputBuffer input_buffer = NONE;
+const int INPUT_BUFFER_SIZE = 19;
+
+
+static int speed_up_delay_counter = 0;
+// is called every time a new flag group is spawned 
+void speed_up_logic(void) {
+  if(frames_between_flags > 45) {
+    frames_between_flags--;
+  } else if (frames_between_flags > 40) {
+    if(++speed_up_delay_counter == 2) { // every other time
+      speed_up_delay_counter = 0;
+      frames_between_flags--;
+    }
+  } else if (frames_between_flags > 35) {
+    if(++speed_up_delay_counter == 3) { // every third time
+      speed_up_delay_counter = 0;
+      frames_between_flags--;
+    }
+  } else if (frames_between_flags > 32) {
+    if(++speed_up_delay_counter == 4) { // every fourth time
+      speed_up_delay_counter = 0;
+      frames_between_flags--;
+    }
+  } 
+  // else, do nothing.  32 will be the max
+}
 
 void game_setup(int frame_count) {
   next_flag_group = 0;
   frame_countdown_to_next_flag = 60;
   frames_between_flags = 60;
+  speed_up_delay_counter = 0;
+  input_buffer = NONE;
   srand(frame_count ^ REG_VCOUNT); // frame count mixed with current line being drawn... seems pretty random to me
   
   //spawn initial 7 flags
@@ -42,10 +63,6 @@ void game_setup(int frame_count) {
     }
 
     const short int lane = rand() % 3;
-    char lane_str[16];
-    snprintf(lane_str, sizeof(lane_str), "%d", lane);
-    print(lane_str);
-    print("------");
 
     // set x
     if(lane == 0) {
@@ -75,26 +92,18 @@ void game_setup(int frame_count) {
 
 // only runs NOT during opening animation
 FrameResult process_game_frame(BootReturn bootReturn) {
-    FrameResult to_return = NOTHING;
+  FrameResult to_return = NOTHING;
+  
+  int player_x_value = bootReturn.player_icon->attr1 & 0xFF;
 
-    //   see C:\Users\super\Documents\Development\Skiii\Assets\customassets\Scripts\movement.cs
-    int player_x_value = bootReturn.player_icon->attr1 & 0xFF;
-    
-    // char player_x_str[16];
-    // snprintf(player_x_str, sizeof(player_x_str), "%d", player_x_value);
+  // if x = {lane 1} || x = {lane 2} || x = {lane 3}, set X velocity to 0 and straight sprite
+  if(x_velocity != 0 && (player_x_value == 32 || player_x_value == 112 || player_x_value == 192)) {
+    x_velocity = 0;
 
-    // print(player_x_str);
+    // set the sprite id to base (facing straight)
+    bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
+  }
 
-
-    // if x = {lane 1} || x = {lane 2} || x = {lane 3}, set X velocity to 0 and straight sprite
-    if(x_velocity != 0 && (player_x_value == 32 || player_x_value == 112 || player_x_value == 192)) {
-      x_velocity = 0;
-
-      // set the sprite id to base (facing straight)
-      bootReturn.player_icon->attr2 = ATTR2_ID(bootReturn.playerImageBaseIndex) | ATTR2_PALBANK(2) | ATTR2_PRIO(1);
-    }
-
-    const int BUFFER_SIZE = 17;
 
     if (key_hit(KEY_LEFT) || key_hit(KEY_L) || (x_velocity == 0 && input_buffer == LEFT)) {
       // reset input buffer 
@@ -102,9 +111,9 @@ FrameResult process_game_frame(BootReturn bootReturn) {
 
       // left is touched while headed left and within a few pixels of the lane, buffer the input
       if(x_velocity < 0 && 
-          (player_x_value > 32 && player_x_value < (32 + BUFFER_SIZE))
-       || (player_x_value > 112 && player_x_value < (112 + BUFFER_SIZE))
-       || (player_x_value > 192 && player_x_value < (192 + BUFFER_SIZE))
+          ((player_x_value > 32 && player_x_value < (32 + INPUT_BUFFER_SIZE))
+       || (player_x_value > 112 && player_x_value < (112 + INPUT_BUFFER_SIZE))
+       || (player_x_value > 192 && player_x_value < (192 + INPUT_BUFFER_SIZE)))
       ) {
         input_buffer = LEFT;
       }
@@ -122,9 +131,9 @@ FrameResult process_game_frame(BootReturn bootReturn) {
 
       // right is touched while headed right and within a few pixels of the lane, buffer the input
       if(x_velocity > 0 && 
-          (player_x_value < 32 && player_x_value > (32 - BUFFER_SIZE))
-       || (player_x_value < 112 && player_x_value > (112 - BUFFER_SIZE))
-       || (player_x_value < 192 && player_x_value > (192 - BUFFER_SIZE))
+          ((player_x_value < 32 && player_x_value > (32 - INPUT_BUFFER_SIZE))
+       || (player_x_value < 112 && player_x_value > (112 - INPUT_BUFFER_SIZE))
+       || (player_x_value < 192 && player_x_value > (192 - INPUT_BUFFER_SIZE)))
       ) {
         input_buffer = RIGHT;
       }
@@ -158,12 +167,7 @@ FrameResult process_game_frame(BootReturn bootReturn) {
         next_flag_group = 0;
       }
 
-      const short int lane = (rand() % 3); // * 2; //0 or 2
-
-      char lane_str[16];
-      snprintf(lane_str, sizeof(lane_str), "fr:%d", frames_between_flags);
-      print(lane_str);
-
+      const short int lane = (rand() % 3);
 
       if(lane == 0) {
         next_flag_left->attr1 = (next_flag_left->attr1 & ~ATTR1_X_MASK) | ATTR1_X(2);  //2
@@ -180,9 +184,7 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       next_flag_left->attr0 = (next_flag_left->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(160); // right at screen bottom (in increment range)
       next_flag_right->attr0 = (next_flag_right->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(160);
 
-
-      //speed up script 
-      frames_between_flags = frames_between_flags > 31 ? frames_between_flags - 1 : frames_between_flags;
+      speed_up_logic();
     }
 
     // each flag group
@@ -212,13 +214,6 @@ FrameResult process_game_frame(BootReturn bootReturn) {
       // two valid zones: less that 160 (on screen) and 240 thru 255 (off the edge of the top of the screen)
       if(!(flagL_y_value > 161 && flagL_y_value < 230)) {
         const int new_y_value = (flagL_y_value - 1) & 0xFF; //bitwise mask will cause it to warp back around to 255
-
-        // debug
-        // if(flagL_y_value < 5) {
-        //     char lane_str[16];
-        //     snprintf(lane_str, sizeof(lane_str), "%d", new_y_value);
-        //     print(lane_str);
-        // }
 
         OBJ_ATTR *flagR = &allObjects[(i*2) + 11];
         flagL->attr0 = (flagL->attr0 & ~ATTR0_Y_MASK) | ATTR0_Y(new_y_value);

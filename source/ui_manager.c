@@ -5,9 +5,6 @@
 #include "ui_manager.h"
 #include "save_to_gba.h"
 
-// static void printHi(void) {
-//   mgbaprintf("Hi\n");
-// }
 static void change_state_to_menu(void) {
   tte_printf("#{es}");
   set_game_state(MENU);
@@ -19,7 +16,6 @@ static void change_state_to_options(void) {
   change_ui_state(game_state);
 }
 static void change_state_to_ski(void) {
-  print("chang state 2 ski");
   tte_printf("#{es}");
   set_game_state(SKI);
   change_ui_state(game_state);
@@ -80,9 +76,12 @@ void change_ui_state(ProgramState state) {
     turn_off_Skiii_logo();
     int hs = read_highscore();
 
+    // reset text bg location      
+    REG_BG2VOFS = 0;
+
     tte_printf("#{es;P:60,50}HIGH SCORE: %03d", hs);
-    tte_printf("#{P:31,115}CREATED BY: TOM RUNNELS", hs);
-    tte_printf("#{P:56,135}MUSIC BY: MELLUSI", hs);
+    tte_printf("#{P:31,115}CREATED BY: TOM RUNNELS");
+    tte_printf("#{P:56,130}MUSIC BY: MELLUSI");
 
 
     // // startup the menu navigation system
@@ -92,12 +91,6 @@ void change_ui_state(ProgramState state) {
     };
     menu_set_active(&option_menu_nodes[0]);
 
-
-    // load options screen objects into vram
-
-    // load options screen objects into OAM
-
-    // unload everything else
   } else if (state == SKI) {
     hide_all_objects();
     turn_off_Skiii_logo();
@@ -110,12 +103,6 @@ void change_ui_state(ProgramState state) {
       (&allObjects[i])->attr0  &= ~(1 << 9);
     }
 
-    // Debug: select to exit SKI mode
-    // static MenuNode ski_menu_nodes[3] = {
-    //   // x, y, up, down, left, right, select
-    //   { 255, 255, NULL, NULL, NULL, NULL, change_state_to_menu },
-    // };
-    // menu_set_active(&ski_menu_nodes[0]);
     oam_copy(oam_mem, allObjects, 24);
 
   } else if (state == RESULTS) {
