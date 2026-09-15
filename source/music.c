@@ -2,7 +2,7 @@
 #include <tonc.h>
 
 
-// DISCLAIMER: This file was written entirely by LLMs
+// DISCLAIMER: This file was written entirely by LLMs, since i know nothing about music
 
 /*
  * Skiitheme as GBA PSG, transcribed from the WAV.
