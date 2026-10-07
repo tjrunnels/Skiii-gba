@@ -80,8 +80,9 @@ void change_ui_state(ProgramState state) {
     REG_BG2VOFS = 0;
 
     tte_printf("#{es;P:60,50}HIGH SCORE: %03d", hs);
-    tte_printf("#{P:31,115}CREATED BY: TOM RUNNELS");
-    tte_printf("#{P:56,130}MUSIC BY: MELLUSI");
+    tte_printf("#{P:31,105}CREATED BY: TOM RUNNELS");
+    tte_printf("#{P:56,120}MUSIC BY: MELLUSI");
+    tte_printf("#{P:64,140}Lapide aedifica");
 
 
     // // startup the menu navigation system
